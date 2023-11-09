@@ -1,0 +1,35 @@
+Thresholds and Setting-- 
+Thresh 1:26
+Thresh 2:26
+Thresh 3:26
+Thresh 4:26
+Thresh 5:26
+Thresh 6:26
+Thresh 7:26
+Thresh 8:26
+Watering increments--
+Max Water Lvl:88
+Bed State--
+PWR Bed1:1
+PWR Bed2:1
+PWR Bed3:1
+PWR Bed4:1
+PWR Bed5:1
+PWR Bed6:1
+PWR Bed7:1
+PWR Bed8:1
+Drip Tape Time:100
+Soaker Hose Time:50
+Watering Option -- 
+Wtr Option 1:1
+Wtr Option 2:1
+Wtr Option 3:1
+Wtr Option 4:0
+Wtr Option 5:1
+Wtr Option 6:0
+Wtr Option 7:1
+Wtr Option 8:0
+Date: 08/21/23 Time:15:12
+AM:7
+PM:19
+SystemStatus:1
