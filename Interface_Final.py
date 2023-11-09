@@ -51,9 +51,9 @@ class TickTock(Label):
                 #self.text = time.asctime()
                 timing = datetime.now().strftime("%H:%M:%S")
                 self.text = timing
-                
+
 class home_screen(Screen):
-#class irrigation_app(App):# switch to float layout and figure out the values for correct positioning 
+#class irrigation_app(App):# switch to float layout and figure out the values for correct positioning
     global waterTime
     global Dialog
     global Bar
@@ -73,7 +73,7 @@ class home_screen(Screen):
 
     def test_schedule(self,*args):
         test=Clock.schedule_once(lambda AA: self.auto_routine(),20)
-        
+
     def auto_timer(self,*args):
         global auto_time
         global am_time
@@ -98,10 +98,10 @@ class home_screen(Screen):
 ##        print('-----------------------------------------------------------------')
 ##        print(now_timer)
 ##        print('-----------------------------------------------------------------')
-##        #save for later 
+##        #save for later
 ##        #firstWaterSched = 21600 # 6am
 ##        #secondWaterSched = 64800 # 6pm
-        
+
         firstWaterSched = am_time*3600  # 7am
         secondWaterSched = pm_time*3600 # 7:35pm
 
@@ -130,7 +130,7 @@ class home_screen(Screen):
         WaterOption=getWaterHose()
         waterTime=wateringTime()
         Manual_BedState=getAllBedStatus()
-		
+
         for index in range(len(Auto_BedState)):
             if Auto_BedState[index]==1:
                 auto_states[index]='ON'
@@ -140,7 +140,7 @@ class home_screen(Screen):
                 auto_states[index]='OFF'
                 auto_buttonstates[index]='normal'
                 bed_color[index]=[.168,.25,.75,1]
-			
+
         for index in range(len(WaterOption)):
             if WaterOption[index]==1:
                 water_type[index]='Soaker'
@@ -160,7 +160,7 @@ class home_screen(Screen):
         WaterOption=getWaterHose()
         waterTime=wateringTime()
         Manual_BedState=getAllBedStatus()
-		
+
         for index in range(len(Auto_BedState)):
             if Auto_BedState[index]==1:
                 auto_states[index]='ON'
@@ -170,7 +170,7 @@ class home_screen(Screen):
                 auto_states[index]='OFF'
                 auto_buttonstates[index]='normal'
                 bed_color[index]=[.168,.25,.75,1]
-			
+
         for index in range(len(WaterOption)):
             if WaterOption[index]==1:
                 water_type[index]='Soaker'
@@ -239,7 +239,7 @@ class home_screen(Screen):
 ##        threshold6.text=str(Threshold[5])
 ##        threshold7.text=str(Threshold[6])
 ##        threshold8.text=str(Threshold[7])
-        
+
     def auto_routine(self,*args):
             def Dialog_Open():
                 Dialog.open()
@@ -250,7 +250,7 @@ class home_screen(Screen):
                 ser.flushOutput()
                 print "Resetting input and output buffer..."
                 Bar.value = 10
-            
+
             def Write_A():
                 ser.write('A')
             def Write_G1():
@@ -312,7 +312,7 @@ class home_screen(Screen):
 
             def Read_watering():
                 if GPIO.input(27):
-                    self.manager.current='Watering_screen' 
+                    self.manager.current='Watering_screen'
 
             # Instantiate dialog
             Grid = GridLayout(rows=2)
@@ -334,17 +334,17 @@ class home_screen(Screen):
             #Clock.schedule_once(lambda K: Write_S(),16.6)
             Clock.schedule_once(lambda L: Dialog_Close(),17)
             Clock.schedule_once(lambda M: Read_watering(),17.5)
-            
+
             #self.test_schedule()
             #self.auto_timer()
-        
-              
+
+
     def manual_routine(self,*args):
         #test.cancel()
         #auto_time.cancel()
         Clock.unschedule(auto_time)
         self.manager.current='Manual_screen'
-          
+
     def settings_routine(self,event):
         #test.cancel()
         #auto_time.cancel()
@@ -630,7 +630,7 @@ class home_screen(Screen):
     #global increase_routine
     #global decrease_routine
     #def increase_routine(thresh):
-    #    thresh=thresh+5 #the rest of the function will read the index of the array and increase the threshold value stored there then stores the new value into the same index of the array. Decrease will be the same but obviously the inverse 
+    #    thresh=thresh+5 #the rest of the function will read the index of the array and increase the threshold value stored there then stores the new value into the same index of the array. Decrease will be the same but obviously the inverse
 
     #def decrease_routine(thresh):
     #    thresh=thresh-5
@@ -670,9 +670,9 @@ class home_screen(Screen):
         grid_layout=GridLayout(cols=8,size_hint=(1,.20),padding=[100,20,0,5],spacing=20)
         box_layout=BoxLayout(orientation='vertical',padding=[20,20,20,20])#use size_hint_y for the layouts added for the bed layout and pagebutton layout
         clock_layout=BoxLayout(size_hint=(1,.10),padding=[20,5,20,0],spacing=200) #left, top, right, bottom
-        
+
         #create labels
-        #threshold1=Label(text=str(Threshold[0]),color=[0,0,1,1],font_size=50) 
+        #threshold1=Label(text=str(Threshold[0]),color=[0,0,1,1],font_size=50)
         #threshold2=Label(text=str(Threshold[1]),color=[0,0,1,1],font_size=50)
         #threshold3=Label(text=str(Threshold[2]),color=[0,0,1,1],font_size=50)
         #threshold4=Label(text=str(Threshold[3]),color=[0,0,1,1],font_size=50)
@@ -749,7 +749,7 @@ class home_screen(Screen):
 
         myClock = TickTock(font_size=60)
         Clock.schedule_interval(myClock.update, 1)
-        
+
         #add the widgets to the layout
         Layout.add_widget(blank1)
         Layout.add_widget(blank2)
@@ -774,7 +774,7 @@ class home_screen(Screen):
         Layout.add_widget(bed5_state)
         Layout.add_widget(bed6_state)
         Layout.add_widget(bed7_state)
-        Layout.add_widget(bed8_state)       
+        Layout.add_widget(bed8_state)
         Layout.add_widget(blank40)
         Layout.add_widget(blank50)
         Layout.add_widget(blank100)
@@ -783,7 +783,7 @@ class home_screen(Screen):
         Layout.add_widget(blank400)
         Layout.add_widget(blank500)
         Layout.add_widget(blank1000)
-        
+
 
         #float_layout.add_widget(auto_button)
         grid_layout.add_widget(manual_button)
@@ -795,7 +795,7 @@ class home_screen(Screen):
         box_layout.add_widget(clock_layout)
         box_layout.add_widget(Layout)
         box_layout.add_widget(grid_layout)
-       
+
         self.add_widget(box_layout)
 
 class manual_screen(Screen):
@@ -808,7 +808,7 @@ class manual_screen(Screen):
     global mwater_color
     global sensor_text
     global sensor_color
-    
+
     mwater_type=[0,0,0,0,0,0,0,0]
     mwater_buttonstates=[0,0,0,0,0,0,0,0]
     mwater_color=[0,0,0,0,0,0,0,0]
@@ -818,14 +818,14 @@ class manual_screen(Screen):
     manual_buttonstates=[0,0,0,0,0,0,0,0]
     mbed_color=[0,0,0,0,0,0,0,0]
     sensor_color=[0,0,0,0,0,0,0,0]
-    
+
     def manual_init(self,*args):
         Threshold=getThresholds()
         Auto_BedState=getAllBedStatus()
         WaterOption=getWaterHose()
         waterTime=wateringTime()
         Manual_BedState=getAllBedStatus()
-		
+
         for index in range(len(Manual_BedState)):
             if Manual_BedState[index]==1:
                 manual_states[index]='ON'
@@ -835,7 +835,7 @@ class manual_screen(Screen):
                 manual_states[index]='OFF'
                 manual_buttonstates[index]='normal'
                 mbed_color[index]=[.168,.25,.75,1]
-			
+
         for index in range(len(WaterOption)):
             if WaterOption[index]==1:
                 mwater_type[index]='Soaker'
@@ -852,7 +852,7 @@ class manual_screen(Screen):
         WaterOption=getWaterHose()
         waterTime=wateringTime()
         Manual_BedState=getAllBedStatus()
-		
+
         for index in range(len(Manual_BedState)):
             if Manual_BedState[index]==1:
                 manual_states[index]='ON'
@@ -862,7 +862,7 @@ class manual_screen(Screen):
                 manual_states[index]='OFF'
                 manual_buttonstates[index]='normal'
                 mbed_color[index]=[.168,.25,.75,1]
-			
+
         for index in range(len(WaterOption)):
             if WaterOption[index]==1:
                 mwater_type[index]='Soaker'
@@ -923,13 +923,13 @@ class manual_screen(Screen):
 ##        mwater_option8.state=mwater_buttonstates[7]
 ##        mwater_option8.background_color=mwater_color[7]
         self.read_sensors()
-        	
+
     def return_toAuto(self,event):
         self.manager.current='Home_screen'
-		
+
     def to_settings(self,event):
         self.manager.current='Settings_screen'
-		
+
     def read_sensors(self,*args):
 	def writeR():
             ser.flushInput()
@@ -953,16 +953,16 @@ class manual_screen(Screen):
             sens_read6.color = [1,1,1,1]
             sens_read7.color = [1,1,1,1]
             sens_read8.color = [1,1,1,1]
-        
+
         def read_sens():
             while ser.inWaiting()==0:
                 pass
             for index in range(len(sensor_values)):
                 tempval = ser.readline()
                 sensor_values[index] = int(tempval)
-                
+
         def change_sensval():
-            
+
             for index in range(len(sensor_values)):
                     # Subject to change
                     if sensor_values[index] >= 35:
@@ -995,12 +995,12 @@ class manual_screen(Screen):
             sens_read6.color = sensor_color[5]
             sens_read7.color = sensor_color[6]
             sens_read8.color = sensor_color[7]
-                    
+
 
         Clock.schedule_once(lambda N: writeR(),0)
         Clock.schedule_once(lambda O: read_sens(),1.5)
         Clock.schedule_once(lambda P: change_sensval(),2)
-		
+
     def start_manual(self,event):
 	def Dialog_Open():
                 Dialog.open()
@@ -1011,7 +1011,7 @@ class manual_screen(Screen):
             ser.flushOutput()
             print "Resetting input and output buffer..."
             Bar.value = 10
-        
+
         def Write_A():
             ser.write('A')
         def Write_G1():
@@ -1068,10 +1068,10 @@ class manual_screen(Screen):
             Dialog.dismiss()
         def Write_M():
             ser.write('M')
-            
+
 
         def Read_watering():
-            self.manager.current='Watering_screen'  
+            self.manager.current='Watering_screen'
 
         # Instantiate dialog
         Grid = GridLayout(rows=2)
@@ -1094,8 +1094,8 @@ class manual_screen(Screen):
         #Clock.schedule_once(lambda K: Write_M(),16.6)
         Clock.schedule_once(lambda L: Dialog_Close(),17)
         Clock.schedule_once(lambda M: Read_watering(),18)
-        
-                
+
+
 
     def mbed_state1(self,event):
         if mbed1_state.state=='down':
@@ -1271,7 +1271,7 @@ class manual_screen(Screen):
 ##            mwater_option8.background_color=(0,0,1,1)
 ##            WaterOption[7]=0
 
-			
+
     def __init__(self,**kwargs):
         global mbed1_state
         global mbed2_state
@@ -1297,21 +1297,21 @@ class manual_screen(Screen):
         global sens_read6
         global sens_read7
         global sens_read8
-        
+
         super(manual_screen,self).__init__(**kwargs)
         self.manual_init()
         mgrid_layout1=GridLayout(cols=8,rows=5,size_hint=(1,.7),spacing=20,padding=[5,0,5,0])
         mgrid_layout2=GridLayout(cols=8,size_hint=(1,.20),padding=[100,30,0,5],spacing=20)
         mbox_layout=BoxLayout(orientation='vertical')
         clock_box=BoxLayout(size_hint=(1,.10),padding=[20,5,20,0],spacing=200)
-        
+
         home_button=Button(text='Home',font_size=50,on_press=self.return_toAuto,background_color=[.38,.47,.6,2])
         home_button.bind(on_pre_enter=home_screen.on_pre_enter)
         settings_button=Button(text='Options',font_size=50,on_press=self.to_settings,background_color=[.38,.47,.6,2])
         settings_button.bind(on_pre_enter=settings_screen.on_pre_enter)
         #sensorRead_button=Button(text='Read Sensors',font_size=25,on_press=self.read_sensors,width=300,background_color=[.38,.47,.6,2])
         manual_start=Button(text='Start',font_size=50,on_press=self.start_manual,background_color=[.38,.47,.6,2])
-        
+
         mbed1_state=ToggleButton(text=manual_states[0],state=manual_buttonstates[0],background_color=mbed_color[0],on_press=self.mbed_state1,font_size=40)
         mbed2_state=ToggleButton(text=manual_states[1],state=manual_buttonstates[1],background_color=mbed_color[1],on_press=self.mbed_state2,font_size=40)
         mbed3_state=ToggleButton(text=manual_states[2],state=manual_buttonstates[2],background_color=mbed_color[2],on_press=self.mbed_state3,font_size=40)
@@ -1321,7 +1321,7 @@ class manual_screen(Screen):
         mbed7_state=ToggleButton(text=manual_states[6],state=manual_buttonstates[6],background_color=mbed_color[6],on_press=self.mbed_state7,font_size=40)
         mbed8_state=ToggleButton(text=manual_states[7],state=manual_buttonstates[7],background_color=mbed_color[7],on_press=self.mbed_state8,font_size=40)
         screen_label=Label(text='MANUAL',font_size=60)
-     
+
         sens_read1=Label(text=sensor_text[0],font_size=25) #should dynamically change the color of the sensor values red green or yellow based on our data
         sens_read2=Label(text=sensor_text[1],font_size=25) #should dynamically change the color of the sensor values red green or yellow based on our data
         sens_read3=Label(text=sensor_text[2],font_size=25) #should dynamically change the color of the sensor values red green or yellow based on our data
@@ -1368,7 +1368,7 @@ class manual_screen(Screen):
 
         myClock = TickTock(font_size=60)
         Clock.schedule_interval(myClock.update, 1)
-        
+
         mgrid_layout1.add_widget(blank1)
         mgrid_layout1.add_widget(blank2)
         mgrid_layout1.add_widget(blank3)
@@ -1409,8 +1409,8 @@ class manual_screen(Screen):
         mgrid_layout1.add_widget(blank60)
         mgrid_layout1.add_widget(blank70)
         mgrid_layout1.add_widget(blank80)
-       
-        
+
+
 ##        mgrid_layout1.add_widget(mwater_option1)
 ##        mgrid_layout1.add_widget(mwater_option2)
 ##        mgrid_layout1.add_widget(mwater_option3)
@@ -1435,7 +1435,7 @@ class manual_screen(Screen):
         self.add_widget(mbox_layout)
 
 class watering_screen(Screen):
-    
+
     def check_watering(self,*args):
         if GPIO.input(27):
             check()
@@ -1449,12 +1449,12 @@ class watering_screen(Screen):
         return check
     def on_enter(self,*args):
         self.check_schedule()
-        
+
     def RestartDuino(self,*args):
         GPIO.output(17,1)
         sleep(0.5)
         GPIO.output(17,0)
-    
+
     def __init__(self,**kwargs):
         super(watering_screen,self).__init__(**kwargs)
         watering_screen_grid = GridLayout(cols = 3, rows = 3)
@@ -1486,10 +1486,10 @@ class settings_screen(Screen):
     global wait_times
     global AM_label
     global PM_label
-    
+
     wait_times = []
     tempAM,tempPM = getAutoWaitTime()
-    wait_times.append(tempAM)    
+    wait_times.append(tempAM)
     wait_times.append(tempPM)
 
 ##    def change_thresh(self,*args):
@@ -1535,7 +1535,7 @@ class settings_screen(Screen):
         setAutoWaitTime(am_time,pm_time)
 
     def dec_wait_time(self,*args):
-        
+
         if wait_times[0] == 0:
             pass
         else:
@@ -1590,8 +1590,8 @@ class settings_screen(Screen):
     winter_layout.add_widget(winterL2)
     continue_box.add_widget(begin_btn)
     continue_box.add_widget(cancel_btn)
-    winter_layout.add_widget(continue_box)  
-    
+    winter_layout.add_widget(continue_box)
+
     winterize_dialog = Popup(title="Winterize Steps",title_size=20,content=winter_layout,title_align='center',size_hint=(.88,.88),auto_dismiss=False)
     begin_btn.bind(on_press=winterize_dialog.dismiss)
     cancel_btn.bind(on_press=winterize_dialog.dismiss)
@@ -1618,10 +1618,10 @@ class settings_screen(Screen):
     wait_time_layout.add_widget(exitwait_btn)
     waittime_dialog=Popup(title='Auto Wait Time Settings',title_size=40,content=wait_time_layout,title_align='center',size_hint=(.85,.85),auto_dismiss=False)
     exitwait_btn.bind(on_press=waittime_dialog.dismiss)
-    
 
-    
-   
+
+
+
     def __init__(self,**kwargs):
         super(settings_screen,self).__init__(**kwargs)
         box=BoxLayout(orientation='vertical',padding=[50,80,50,80],spacing=45)
@@ -1639,9 +1639,9 @@ class settings_screen(Screen):
         box.add_widget(home_btn)
 
         self.add_widget(box)
-        
+
 class fault_screen(Screen):
-    
+
     def __init__(self,**kwargs):
         super(fault_screen,self).__init__(**kwargs)
         #box = BoxLayout(orientation='vertical',padding=[50,80,50,80],spacing=20)
@@ -1656,7 +1656,7 @@ class fault_screen(Screen):
         global bed7_fault_btn
         global bed8_fault_btn
         global flow_fault_btn
-        
+
         bed1_fault_btn=Button(text=' ',color=[0,1,0,1],font_size=35,background_color=[.38,.47,.6,2])
         bed2_fault_btn=Button(text=' ',color=[0,1,0,1],font_size=35,background_color=[.38,.47,.6,2])
         bed3_fault_btn=Button(text=' ',color=[0,1,0,1],font_size=35,background_color=[.38,.47,.6,2])
@@ -1677,7 +1677,7 @@ class fault_screen(Screen):
         bed7_fault_btn.disabled = True
         bed8_fault_btn.disabled = True
         flow_fault_btn.disabled = True
-        
+
         box.add_widget(bed1_fault_btn)
         box.add_widget(bed2_fault_btn)
         box.add_widget(bed3_fault_btn)
@@ -1693,7 +1693,7 @@ class fault_screen(Screen):
 
     def return_toAuto(self,event):
         self.manager.current='Home_screen'
-    
+
     def read_faults(self,*args):
         global faults
         global temp_text
@@ -1715,7 +1715,7 @@ class fault_screen(Screen):
             bed5_fault_btn.text = "Loading..."
             bed6_fault_btn.text = "Loading..."
             bed7_fault_btn.text = "Loading..."
-            bed8_fault_btn.text = "Loading..."    
+            bed8_fault_btn.text = "Loading..."
             flow_fault_btn.text = "Loading..."
 
 
@@ -1726,7 +1726,7 @@ class fault_screen(Screen):
             bed5_fault_btn.color = [1,1,1,1]
             bed6_fault_btn.color = [1,1,1,1]
             bed7_fault_btn.color = [1,1,1,1]
-            bed8_fault_btn.color = [1,1,1,1]    
+            bed8_fault_btn.color = [1,1,1,1]
             flow_fault_btn.color = [1,1,1,1]
 
         def get_faults():
@@ -1738,7 +1738,7 @@ class fault_screen(Screen):
             bed5_fault_btn.text = "Obtaining data..."
             bed6_fault_btn.text = "Obtaining data..."
             bed7_fault_btn.text = "Obtaining data..."
-            bed8_fault_btn.text = "Obtaining data..."    
+            bed8_fault_btn.text = "Obtaining data..."
             flow_fault_btn.text = "Obtaining data..."
 
             bed1_fault_btn.color = [1,1,1,1]
@@ -1748,9 +1748,9 @@ class fault_screen(Screen):
             bed5_fault_btn.color = [1,1,1,1]
             bed6_fault_btn.color = [1,1,1,1]
             bed7_fault_btn.color = [1,1,1,1]
-            bed8_fault_btn.color = [1,1,1,1]    
+            bed8_fault_btn.color = [1,1,1,1]
             flow_fault_btn.color = [1,1,1,1]
-            
+
             sleep(.1)
 
             while ser.inWaiting()==0:
@@ -1775,7 +1775,7 @@ class fault_screen(Screen):
             else:
                 temp_text[8] = "Flow sensor good"
                 temp_color[8] = [1,1,1,1]
-                                            
+
             bed1_fault_btn.text = temp_text[0]
             bed2_fault_btn.text = temp_text[1]
             bed3_fault_btn.text = temp_text[2]
@@ -1783,7 +1783,7 @@ class fault_screen(Screen):
             bed5_fault_btn.text = temp_text[4]
             bed6_fault_btn.text = temp_text[5]
             bed7_fault_btn.text = temp_text[6]
-            bed8_fault_btn.text = temp_text[7]    
+            bed8_fault_btn.text = temp_text[7]
             flow_fault_btn.text = temp_text[8]
 
             bed1_fault_btn.color = temp_color[0]
@@ -1803,7 +1803,7 @@ class fault_screen(Screen):
     #def on_pre_enter(self,*args):
     def on_enter(self,*args):
         self.read_faults()
-        
+
 class display_app(App):
     def build(self):
         sm=ScreenManager()
@@ -1811,14 +1811,14 @@ class display_app(App):
         Manual_screen = manual_screen(name='Manual_screen')
         Watering_screen = watering_screen(name='Watering_screen')
         Settings_screen = settings_screen(name='Settings_screen')
-        Fault_screen = fault_screen(name='Fault_screen')                
+        Fault_screen = fault_screen(name='Fault_screen')
         sm.add_widget(Home_screen)
         sm.add_widget(Manual_screen)
         sm.add_widget(Watering_screen)
         sm.add_widget(Settings_screen)
-        sm.add_widget(Fault_screen)                      
+        sm.add_widget(Fault_screen)
         return sm
-    
+
 if __name__=="__main__":
     display_app().run()
 
