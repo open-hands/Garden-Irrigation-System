@@ -1,6 +1,7 @@
 #!/usr/bin/python
 from datetime import datetime
 import time
+import os
 
 dt = datetime.now()
 Threshold=[20,20,20,20,20,20,20,20]
@@ -8,21 +9,22 @@ BedState=[1,0,0,0,0,0,0,0]
 WaterOption=[0,0,0,0,0,0,0,0]
 SensorValues=[0,0,0,0,0,0,0,0]
 hoseType =[0,0,0,0,0,0,0,0]
-filepath = '/home/pi/Aug24_Final/SettingsFile.txt'
+settingsFile = os.path.join(os.path.dirname(os.path.realpath(__file__)), "SettingsFile.txt")
+
 #-------------------------------------------------------------------------
-#Function takes in Bed Number & New Thrsholds
+#Function takes in Bed Number & New Thresholds
 #opens settings file, rewrites selected line based on bed number input
 def saveThreshold(BedNumber, NewThreshold):
-    f = open(filepath, 'r')
+    f = open(settingsFile, 'r')
     data = f.readlines()
-    print (data)
-    print ('old Threshold'+ data[BedNumber])
+    print(data)
+    print('old Threshold'+ data[BedNumber])
     data[31] = dt.strftime("Date: %m/%d/%y Time:%H:%M\n")
     data[BedNumber] ='Thresh '+str(BedNumber)+':'+str(NewThreshold)+'\n'
-    print (data)
+    print(data)
     f.close
 
-    f = open(filepath,'w')
+    f = open(settingsFile,'w')
     f.seek(0)
     f.writelines(data)
     f.close
@@ -32,14 +34,14 @@ def saveThreshold(BedNumber, NewThreshold):
 #function updates the value set by the team for the max watering value (time or number? not sure)
 
 def saveMaxWaterLvl(setMax):
-    f = open(filepath, 'r')
+    f = open(settingsFile, 'r')
     data = f.readlines()
-    print (data)
+    print(data)
     data[10] = 'Max Water Lvl:'+str(setMax)+'\n'
     data[31] = dt.strftime("Date: %m/%d/%y Time:%H:%M\n")
     f.close
 
-    f = open(filepath,'w')
+    f = open(settingsFile,'w')
     f.seek(0)
     f.writelines(data)
     f.close
@@ -52,15 +54,15 @@ def saveMaxWaterLvl(setMax):
 #function updates the user setting for the amount that we increment the water adjustment
 
 def saveIncAmount(setIncrement):
-    f = open(filepath, 'r')
+    f = open(settingsFile, 'r')
     data = f.readlines()
-    print (data)
+    print(data)
 
     data[11] = 'Increment:'+str(setIncrement)+'\n'
     data[31] = dt.strftime("Date: %m/%d/%y Time:%H:%M\n")
     f.close
 
-    f = open(filepath,'w')
+    f = open(settingsFile,'w')
     f.seek(0)
     f.writelines(data)
     f.close
@@ -72,10 +74,9 @@ def saveIncAmount(setIncrement):
 #-----------------------------------------------------------------------------
 #function open SettingsFile and grabs saved value for team set increment amount
 def getIncAmount():
-    f = open(filepath, 'r')
+    f = open(settingsFile, 'r')
     data = f.readlines()
-    print (data)
-
+    print(data)
 
     x = data[11]
     f.close
@@ -91,7 +92,7 @@ def getIncAmount():
 #function to turn individual bed off
 
 def turnBedOff(BedNumber):
-    f = open(filepath, 'r')
+    f = open(settingsFile, 'r')
     data = f.readlines()
     #print (data)
 
@@ -99,7 +100,7 @@ def turnBedOff(BedNumber):
     data[31] = dt.strftime("Date: %m/%d/%y Time:%H:%M\n")
     f.close
 
-    f = open(filepath, 'w')
+    f = open(settingsFile, 'w')
     f.writelines(data)
     f.close
 
@@ -109,15 +110,15 @@ def turnBedOff(BedNumber):
 #function to turn individual bed on
 
 def turnBedOn(BedNumber):
-    f = open(filepath, 'r')
+    f = open(settingsFile, 'r')
     data = f.readlines()
-    #print (data)
+    #print(data)
 
     data[11+BedNumber] = 'PWR Bed'+str(BedNumber)+':1'+'\n'
     data[31] = dt.strftime("Date: %m/%d/%y Time:%H:%M\n")
     f.close
 
-    f = open(filepath, 'w')
+    f = open(settingsFile, 'w')
     f.writelines(data)
     f.close
 
@@ -127,9 +128,9 @@ def turnBedOn(BedNumber):
 #function to get bed status
 
 def getBedStatus(BedNum):
-    f = open(filepath, 'r')
+    f = open(settingsFile, 'r')
     data = f.readlines()
-    #print (data)
+    #print(data)
 
 
     x = data[11 + BedNum]
@@ -140,9 +141,9 @@ def getBedStatus(BedNum):
     return incAmount
 
 def getThresholds():
-    f = open(filepath, 'r')
+    f = open(settingsFile, 'r')
     data = f.readlines()
-    #print (data)
+    #print(data)
     f.close
 
     for num in range(1,9):
@@ -154,9 +155,9 @@ def getThresholds():
     return Threshold
 
 def getAllBedStatus():
-    f = open(filepath, 'r')
+    f = open(settingsFile, 'r')
     data = f.readlines()
-    #print (data)
+    #print(data)
     f.close
 
     for num in range(1,9):
@@ -169,7 +170,7 @@ def getAllBedStatus():
 
 def wateringTime():
 # Option for Soaker Hose
-    f = open(filepath, 'r')
+    f = open(settingsFile, 'r')
     data = f.readlines()
     f.close()
     soak = 1
@@ -206,34 +207,34 @@ def wateringTime():
 def setSoaker(x):
 #option to set watering time
 
-    f = open(filepath, 'r')
+    f = open(settingsFile, 'r')
     data = f.readlines()
     #print (data)
     f.close
     data[22 +x] = 'Wtr Option '+str(x)+':1'+'\n'
     data[31] = dt.strftime("Date: %m/%d/%y Time:%H:%M\n")
     print(x)
-    f = open(filepath, 'w')
+    f = open(settingsFile, 'w')
     f.writelines(data)
     f.close
 
 def setDrip(x):
 #option to set watering time
 
-    f = open(filepath, 'r')
+    f = open(settingsFile, 'r')
     data = f.readlines()
     #print (data)
     f.close
     data[22 + x] = 'Wtr Option '+str(x)+':0'+'\n'
     data[31] = dt.strftime("Date: %m/%d/%y Time:%H:%M\n")
     print(x)
-    f = open(filepath, 'w')
+    f = open(settingsFile, 'w')
     f.writelines(data)
     f.close
 
 # Function to get intitial hose type based on text file
 def getWaterHose():
-    f = open(filepath, 'r')
+    f = open(settingsFile, 'r')
     data = f.readlines()
     #print (data)
     f.close
@@ -249,7 +250,7 @@ def getWaterHose():
 ##
 def setAutoWaitTime(x, y):
 
-    f = open(filepath, 'r')
+    f = open(settingsFile, 'r')
     data = f.readlines()
     #print (data)
     f.close
@@ -257,13 +258,13 @@ def setAutoWaitTime(x, y):
     data[33] = 'PM:' + str(y) + '\n'
     data[31] = dt.strftime("Date: %m/%d/%y Time:%H:%M\n")
 
-    f = open(filepath, 'w')
+    f = open(settingsFile, 'w')
     f.writelines(data)
     f.close
 
 def getAutoWaitTime():
-    print "AM"
-    f = open(filepath, 'r')
+    print("AM")
+    f = open(settingsFile, 'r')
     data = f.readlines()
     print (data)
     f.close
@@ -276,7 +277,7 @@ def getAutoWaitTime():
 
 def setSystemStatus(x):
 
-    f = open(filepath, 'r')
+    f = open(settingsFile, 'r')
     data = f.readlines()
     #print (data)
     f.close
@@ -284,12 +285,12 @@ def setSystemStatus(x):
     data[34] = 'SystemStatus:' + str(x) + '\n'
     data[31] = dt.strftime("Date: %m/%d/%y Time:%H:%M\n")
 
-    f = open(filepath, 'w')
+    f = open(settingsFile, 'w')
     f.writelines(data)
     f.close
 
 def getSystemStatus():
-    f = open(filepath, 'r')
+    f = open(settingsFile, 'r')
     data = f.readlines()
     #print (data)
     f.close

@@ -1,7 +1,8 @@
+#!/usr/bin/env python3
 import kivy
 import time
 import serial
-import RPi.GPIO as GPIO
+# import RPi.GPIO as GPIO
 from kivy.config import Config
 Config.set('graphics','fullscreen','0')
 Config.set('graphics','resizable','1')
@@ -36,21 +37,22 @@ import datetime
 from datetime import datetime
 
 global ser
-ser = serial.Serial('/dev/ttyACM0', 9600)
+# ser = serial.Serial('/dev/ttyACM0', 9600)
+ser = serial.Serial('/dev/tty.usbmodem11301', 9600)
 
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(27,GPIO.IN)
-GPIO.setup(17,GPIO.OUT, initial = 0)
+# GPIO.setmode(GPIO.BCM)
+# GPIO.setup(27,GPIO.IN)
+# GPIO.setup(17,GPIO.OUT, initial = 0)
 
 from functools import partial
 from SettingsChange import * #getAllBedStatus,getThresholds,wateringTime,saveThreshold,turnBedOff,turnBedOn,setSoaker,setDrip
 
 # Clock Screen
 class TickTock(Label):
-        def update(self,*args):
-                #self.text = time.asctime()
-                timing = datetime.now().strftime("%H:%M:%S")
-                self.text = timing
+    def update(self,*args):
+        #self.text = time.asctime()
+        timing = datetime.now().strftime("%H:%M:%S")
+        self.text = timing
 
 class home_screen(Screen):
 #class irrigation_app(App):# switch to float layout and figure out the values for correct positioning
@@ -241,102 +243,103 @@ class home_screen(Screen):
 ##        threshold8.text=str(Threshold[7])
 
     def auto_routine(self,*args):
-            def Dialog_Open():
-                Dialog.open()
-                pass
+        def Dialog_Open():
+            Dialog.open()
+            pass
 
-            def Reset_Buffs():
-                ser.flushInput()
-                ser.flushOutput()
-                print "Resetting input and output buffer..."
-                Bar.value = 10
+        def Reset_Buffs():
+            ser.flushInput()
+            ser.flushOutput()
+            print("Resetting input and output buffer...")
+            Bar.value = 10
 
-            def Write_A():
-                ser.write('A')
-            def Write_G1():
-                ser.write('G')
-                ser.write(str(Threshold[0])+'\n')
-                ser.write(str(Threshold[1])+'\n')
-                ser.write(str(Threshold[2])+'\n')
-                ser.write(str(Threshold[3])+'\n')
-                ser.write(str(Threshold[4])+'\n')
-                ser.write(str(Threshold[5])+'\n')
-                ser.write(str(Threshold[6])+'\n')
-                ser.write(str(Threshold[7])+'\n')
-                print "Thresholds done."
-                Bar.value = 30
-            def Write_G2():
-                ser.write('G')
-                ser.write(str(Auto_BedState[0])+'\n')
-                ser.write(str(Auto_BedState[1])+'\n')
-                ser.write(str(Auto_BedState[2])+'\n')
-                ser.write(str(Auto_BedState[3])+'\n')
-                ser.write(str(Auto_BedState[4])+'\n')
-                ser.write(str(Auto_BedState[5])+'\n')
-                ser.write(str(Auto_BedState[6])+'\n')
-                ser.write(str(Auto_BedState[7])+'\n')
-                print "Auto Beds On/Off done."
-                Bar.value = 50
-            def Write_G3():
-                ser.write('G')
-                ser.write(str(WaterOption[0])+'\n')
-                ser.write(str(WaterOption[1])+'\n')
-                ser.write(str(WaterOption[2])+'\n')
-                ser.write(str(WaterOption[3])+'\n')
-                ser.write(str(WaterOption[4])+'\n')
-                ser.write(str(WaterOption[5])+'\n')
-                ser.write(str(WaterOption[6])+'\n')
-                ser.write(str(WaterOption[7])+'\n')
-                print "Timers done."
-                Bar.value = 70
-            def Write_G4():
-                ser.write('G')
-                ser.write(str(Manual_BedState[0])+'\n')
-                ser.write(str(Manual_BedState[1])+'\n')
-                ser.write(str(Manual_BedState[2])+'\n')
-                ser.write(str(Manual_BedState[3])+'\n')
-                ser.write(str(Manual_BedState[4])+'\n')
-                ser.write(str(Manual_BedState[5])+'\n')
-                ser.write(str(Manual_BedState[6])+'\n')
-                ser.write(str(Manual_BedState[7])+'\n')
-                Bar.value = 90
-            def Wait_Break():
-                Bar.value = 100
-                print "Reads are finished."
-            def Dialog_Close():
-                Dialog.dismiss()
-            def Write_S():
-                ser.flushInput()
-                ser.flushOutput()
-                ser.write('S')
+        def Write_A():
+            ser.write(b'A')
+        def Write_G1():
+            ser.write(b'G')
+            ser.write(str(Threshold[0])+'\n')
+            ser.write(str(Threshold[1])+'\n')
+            ser.write(str(Threshold[2])+'\n')
+            ser.write(str(Threshold[3])+'\n')
+            ser.write(str(Threshold[4])+'\n')
+            ser.write(str(Threshold[5])+'\n')
+            ser.write(str(Threshold[6])+'\n')
+            ser.write(str(Threshold[7])+'\n')
+            print("Thresholds done.")
+            Bar.value = 30
+        def Write_G2():
+            ser.write(b'G')
+            ser.write(str(Auto_BedState[0])+'\n')
+            ser.write(str(Auto_BedState[1])+'\n')
+            ser.write(str(Auto_BedState[2])+'\n')
+            ser.write(str(Auto_BedState[3])+'\n')
+            ser.write(str(Auto_BedState[4])+'\n')
+            ser.write(str(Auto_BedState[5])+'\n')
+            ser.write(str(Auto_BedState[6])+'\n')
+            ser.write(str(Auto_BedState[7])+'\n')
+            print("Auto Beds On/Off done.")
+            Bar.value = 50
+        def Write_G3():
+            ser.write(b'G')
+            ser.write(str(WaterOption[0])+'\n')
+            ser.write(str(WaterOption[1])+'\n')
+            ser.write(str(WaterOption[2])+'\n')
+            ser.write(str(WaterOption[3])+'\n')
+            ser.write(str(WaterOption[4])+'\n')
+            ser.write(str(WaterOption[5])+'\n')
+            ser.write(str(WaterOption[6])+'\n')
+            ser.write(str(WaterOption[7])+'\n')
+            print("Timers done.")
+            Bar.value = 70
+        def Write_G4():
+            ser.write(b'G')
+            ser.write(str(Manual_BedState[0])+'\n')
+            ser.write(str(Manual_BedState[1])+'\n')
+            ser.write(str(Manual_BedState[2])+'\n')
+            ser.write(str(Manual_BedState[3])+'\n')
+            ser.write(str(Manual_BedState[4])+'\n')
+            ser.write(str(Manual_BedState[5])+'\n')
+            ser.write(str(Manual_BedState[6])+'\n')
+            ser.write(str(Manual_BedState[7])+'\n')
+            Bar.value = 90
+        def Wait_Break():
+            Bar.value = 100
+            print("Reads are finished.")
+        def Dialog_Close():
+            Dialog.dismiss()
+        def Write_S():
+            ser.flushInput()
+            ser.flushOutput()
+            ser.write(b'S')
 
-            def Read_watering():
-                if GPIO.input(27):
-                    self.manager.current='Watering_screen'
+        def Read_watering():
+            print("Read_watering")
+            # if GPIO.input(27):
+                # self.manager.current='Watering_screen'
 
-            # Instantiate dialog
-            Grid = GridLayout(rows=2)
-            Dialog_Label = Label(text="Sending Data...",font_size=30)
-            Grid.add_widget(Dialog_Label)
-            Bar = ProgressBar(max=100)
-            Grid.add_widget(Bar)
-            Dialog = Popup(title='Automatic mode initialized...',title_size=20,title_align='center',content=Grid,size=(500,300),size_hint=(None,None),auto_dismiss=False)
+        # Instantiate dialog
+        Grid = GridLayout(rows=2)
+        Dialog_Label = Label(text="Sending Data...",font_size=30)
+        Grid.add_widget(Dialog_Label)
+        Bar = ProgressBar(max=100)
+        Grid.add_widget(Bar)
+        Dialog = Popup(title='Automatic mode initialized...',title_size=20,title_align='center',content=Grid,size=(500,300),size_hint=(None,None),auto_dismiss=False)
 
-            # Schedule the read/write events
-            Clock.schedule_once(lambda C: Dialog_Open(),0)
-            Clock.schedule_once(lambda D: Reset_Buffs(),0)
-            Clock.schedule_once(lambda E: Write_A(),1.6)
-            Clock.schedule_once(lambda F: Write_G1(),2.6)
-            Clock.schedule_once(lambda G: Write_G2(),5.6)
-            Clock.schedule_once(lambda H: Write_G3(),8.6)
-            Clock.schedule_once(lambda I: Write_G4(),11.6)
-            Clock.schedule_once(lambda J: Wait_Break(),14.6)
-            #Clock.schedule_once(lambda K: Write_S(),16.6)
-            Clock.schedule_once(lambda L: Dialog_Close(),17)
-            Clock.schedule_once(lambda M: Read_watering(),17.5)
+        # Schedule the read/write events
+        Clock.schedule_once(lambda C: Dialog_Open(),0)
+        Clock.schedule_once(lambda D: Reset_Buffs(),0)
+        Clock.schedule_once(lambda E: Write_A(),1.6)
+        Clock.schedule_once(lambda F: Write_G1(),2.6)
+        Clock.schedule_once(lambda G: Write_G2(),5.6)
+        Clock.schedule_once(lambda H: Write_G3(),8.6)
+        Clock.schedule_once(lambda I: Write_G4(),11.6)
+        Clock.schedule_once(lambda J: Wait_Break(),14.6)
+        #Clock.schedule_once(lambda K: Write_S(),16.6)
+        Clock.schedule_once(lambda L: Dialog_Close(),17)
+        Clock.schedule_once(lambda M: Read_watering(),17.5)
 
-            #self.test_schedule()
-            #self.auto_timer()
+        #self.test_schedule()
+        #self.auto_timer()
 
 
     def manual_routine(self,*args):
@@ -931,50 +934,50 @@ class manual_screen(Screen):
         self.manager.current='Settings_screen'
 
     def read_sensors(self,*args):
-	def writeR():
-            ser.flushInput()
-            ser.flushOutput()
-            ser.write('R')
+        def writeR():
+                ser.flushInput()
+                ser.flushOutput()
+                ser.write(b'R')
 
-            sens_read1.text='Loading...'
-            sens_read2.text='Loading...'
-            sens_read3.text='Loading...'
-            sens_read4.text='Loading...'
-            sens_read5.text='Loading...'
-            sens_read6.text='Loading...'
-            sens_read7.text='Loading...'
-            sens_read8.text='Loading...'
+                sens_read1.text='Loading...'
+                sens_read2.text='Loading...'
+                sens_read3.text='Loading...'
+                sens_read4.text='Loading...'
+                sens_read5.text='Loading...'
+                sens_read6.text='Loading...'
+                sens_read7.text='Loading...'
+                sens_read8.text='Loading...'
 
-            sens_read1.color = [1,1,1,1]
-            sens_read2.color = [1,1,1,1]
-            sens_read3.color = [1,1,1,1]
-            sens_read4.color = [1,1,1,1]
-            sens_read5.color = [1,1,1,1]
-            sens_read6.color = [1,1,1,1]
-            sens_read7.color = [1,1,1,1]
-            sens_read8.color = [1,1,1,1]
+                sens_read1.color = [1,1,1,1]
+                sens_read2.color = [1,1,1,1]
+                sens_read3.color = [1,1,1,1]
+                sens_read4.color = [1,1,1,1]
+                sens_read5.color = [1,1,1,1]
+                sens_read6.color = [1,1,1,1]
+                sens_read7.color = [1,1,1,1]
+                sens_read8.color = [1,1,1,1]
 
         def read_sens():
             while ser.inWaiting()==0:
                 pass
             for index in range(len(sensor_values)):
                 tempval = ser.readline()
-                sensor_values[index] = int(tempval)
+                sensor_values[index] = float(tempval)
 
         def change_sensval():
-
+            print("change_sensval() called")
             for index in range(len(sensor_values)):
                     # Subject to change
                     if sensor_values[index] >= 35:
-                            print sensor_values[index]
+                            print(sensor_values[index])
                             sensor_text[index] = 'Great!'
                             sensor_color[index] = [1,1,1,1]
                     if sensor_values[index] <= 34 and sensor_values[index] >= 20:
-                            print sensor_values[index]
+                            print(sensor_values[index])
                             sensor_text[index] = 'Okay.'
                             sensor_color[index] = [1,1,1,1]
                     if sensor_values[index] < 21:
-                            print sensor_values[index]
+                            print(sensor_values[index])
                             sensor_text[index] = 'Needs\nWater'
                             sensor_color[index] = [1,0,0,1]
 
@@ -1002,72 +1005,48 @@ class manual_screen(Screen):
         Clock.schedule_once(lambda P: change_sensval(),2)
 
     def start_manual(self,event):
-	def Dialog_Open():
-                Dialog.open()
-                pass
+        def Dialog_Open():
+            Dialog.open()
+            pass
 
         def Reset_Buffs():
             ser.flushInput()
             ser.flushOutput()
-            print "Resetting input and output buffer..."
+            print("Resetting input and output buffer...")
             Bar.value = 10
 
         def Write_A():
-            ser.write('A')
+            ser.write(b'A')
         def Write_G1():
-            ser.write('G')
-            ser.write(str(Threshold[0])+'\n')
-            ser.write(str(Threshold[1])+'\n')
-            ser.write(str(Threshold[2])+'\n')
-            ser.write(str(Threshold[3])+'\n')
-            ser.write(str(Threshold[4])+'\n')
-            ser.write(str(Threshold[5])+'\n')
-            ser.write(str(Threshold[6])+'\n')
-            ser.write(str(Threshold[7])+'\n')
-            print "Thresholds done."
+            ser.write(b'G')
+            for x in Threshold:
+                ser.write(str.encode(f"{x}\n"))
+            print("Thresholds done.")
             Bar.value = 30
         def Write_G2():
-            ser.write('G')
-            ser.write(str(Auto_BedState[0])+'\n')
-            ser.write(str(Auto_BedState[1])+'\n')
-            ser.write(str(Auto_BedState[2])+'\n')
-            ser.write(str(Auto_BedState[3])+'\n')
-            ser.write(str(Auto_BedState[4])+'\n')
-            ser.write(str(Auto_BedState[5])+'\n')
-            ser.write(str(Auto_BedState[6])+'\n')
-            ser.write(str(Auto_BedState[7])+'\n')
-            print "Auto Beds On/Off done."
+            ser.write(b'G')
+            for x in Auto_BedState:
+                ser.write(str.encode(f"{x}\n"))
+            print("Auto Beds On/Off done.")
             Bar.value = 50
         def Write_G3():
-            ser.write('G')
-            ser.write(str(WaterOption[0])+'\n')
-            ser.write(str(WaterOption[1])+'\n')
-            ser.write(str(WaterOption[2])+'\n')
-            ser.write(str(WaterOption[3])+'\n')
-            ser.write(str(WaterOption[4])+'\n')
-            ser.write(str(WaterOption[5])+'\n')
-            ser.write(str(WaterOption[6])+'\n')
-            ser.write(str(WaterOption[7])+'\n')
-            print "Timers done."
+            ser.write(b'G')
+            for x in WaterOption:
+                ser.write(str.encode(f"{x}\n"))
+            print("Timers done.")
             Bar.value = 70
         def Write_G4():
-            ser.write('G')
-            ser.write(str(Manual_BedState[0])+'\n')
-            ser.write(str(Manual_BedState[1])+'\n')
-            ser.write(str(Manual_BedState[2])+'\n')
-            ser.write(str(Manual_BedState[3])+'\n')
-            ser.write(str(Manual_BedState[4])+'\n')
-            ser.write(str(Manual_BedState[5])+'\n')
-            ser.write(str(Manual_BedState[6])+'\n')
-            ser.write(str(Manual_BedState[7])+'\n')
+            ser.write(b'G')
+            for x in Manual_BedState:
+                ser.write(str.encode(f"{x}\n"))
             Bar.value = 90
         def Wait_Break():
             Bar.value = 100
-            print "Reads are finished."
+            print("Reads are finished.")
         def Dialog_Close():
             Dialog.dismiss()
         def Write_M():
-            ser.write('M')
+            ser.write(b'M')
 
 
         def Read_watering():
@@ -1309,7 +1288,7 @@ class manual_screen(Screen):
         home_button.bind(on_pre_enter=home_screen.on_pre_enter)
         settings_button=Button(text='Options',font_size=50,on_press=self.to_settings,background_color=[.38,.47,.6,2])
         settings_button.bind(on_pre_enter=settings_screen.on_pre_enter)
-        #sensorRead_button=Button(text='Read Sensors',font_size=25,on_press=self.read_sensors,width=300,background_color=[.38,.47,.6,2])
+        # sensorRead_button=Button(text='Read Sensors',font_size=25,on_press=self.read_sensors,width=300,background_color=[.38,.47,.6,2])
         manual_start=Button(text='Start',font_size=50,on_press=self.start_manual,background_color=[.38,.47,.6,2])
 
         mbed1_state=ToggleButton(text=manual_states[0],state=manual_buttonstates[0],background_color=mbed_color[0],on_press=self.mbed_state1,font_size=40)
@@ -1422,7 +1401,7 @@ class manual_screen(Screen):
 
         mgrid_layout2.add_widget(home_button)
         mgrid_layout2.add_widget(settings_button)
-        #mgrid_layout2.add_widget(sensorRead_button)
+        # mgrid_layout2.add_widget(sensorRead_button)
         mgrid_layout2.add_widget(manual_start)
 
         clock_box.add_widget(screen_label)
@@ -1437,11 +1416,12 @@ class manual_screen(Screen):
 class watering_screen(Screen):
 
     def check_watering(self,*args):
-        if GPIO.input(27):
-            check()
-        else:
-            check.cancel()
-            self.manager.current='Home_screen'
+        print("check_watering")
+        # if GPIO.input(27):
+        #     check()
+        # else:
+        #     check.cancel()
+        #     self.manager.current='Home_screen'
 
     def check_schedule(self,*args):
         global check
@@ -1451,33 +1431,17 @@ class watering_screen(Screen):
         self.check_schedule()
 
     def RestartDuino(self,*args):
-        GPIO.output(17,1)
-        sleep(0.5)
-        GPIO.output(17,0)
+        print("RestartDuino")
+        # GPIO.output(17,1)
+        # sleep(0.5)
+        # GPIO.output(17,0)
 
     def __init__(self,**kwargs):
         super(watering_screen,self).__init__(**kwargs)
         watering_screen_grid = GridLayout(cols = 3, rows = 3)
 
-        blanklabel1 = Label(text="Currently watering...", background_color=[1,0,0,1], font_size=30)
-        blanklabel2 = Label(text="Currently watering...", background_color=[1,0,0,1], font_size=30)
-        blanklabel3 = Label(text="Currently watering...", background_color=[1,0,0,1], font_size=30)
-        blanklabel4 = Label(text="Currently watering...", background_color=[1,0,0,1], font_size=30)
-        Abort = Button(text="ABORT", background_color=[1,0,0,1], font_size=50, on_press=self.RestartDuino)
-        blanklabel6 = Label(text="Currently watering...", background_color=[1,0,0,1], font_size=30)
-        blanklabel7 = Label(text="Currently watering...", background_color=[1,0,0,1], font_size=30)
-        blanklabel8 = Label(text="Currently watering...", background_color=[1,0,0,1], font_size=30)
-        blanklabel9 = Label(text="Currently watering...", background_color=[1,0,0,1], font_size=30)
-
-        watering_screen_grid.add_widget(blanklabel1)
-        watering_screen_grid.add_widget(blanklabel2)
-        watering_screen_grid.add_widget(blanklabel3)
-        watering_screen_grid.add_widget(blanklabel4)
-        watering_screen_grid.add_widget(Abort)
-        watering_screen_grid.add_widget(blanklabel6)
-        watering_screen_grid.add_widget(blanklabel7)
-        watering_screen_grid.add_widget(blanklabel8)
-        watering_screen_grid.add_widget(blanklabel9)
+        watering_screen_grid.add_widget(Label(text="Currently watering...", font_size=30))
+        watering_screen_grid.add_widget(Button(text="ABORT", background_color=[1,0,0,1], font_size=50, on_press=self.RestartDuino))
 
         self.add_widget(watering_screen_grid)
 
@@ -1513,7 +1477,7 @@ class settings_screen(Screen):
     def start_winter(self,*args):
         ser.flushInput()
         ser.flushOutput()
-        ser.write('W')
+        ser.write(b'W')
 
     def inc_wait_time(self,*args):
         if wait_times[0] == 11:
@@ -1647,45 +1611,27 @@ class fault_screen(Screen):
         #box = BoxLayout(orientation='vertical',padding=[50,80,50,80],spacing=20)
         box = GridLayout(cols=2,rows=5,padding=[50,80,50,80],spacing=20)
 
-        global bed1_fault_btn
-        global bed2_fault_btn
-        global bed3_fault_btn
-        global bed4_fault_btn
-        global bed5_fault_btn
-        global bed6_fault_btn
-        global bed7_fault_btn
-        global bed8_fault_btn
+        global bed_fault_btns
         global flow_fault_btn
-
-        bed1_fault_btn=Button(text=' ',color=[0,1,0,1],font_size=35,background_color=[.38,.47,.6,2])
-        bed2_fault_btn=Button(text=' ',color=[0,1,0,1],font_size=35,background_color=[.38,.47,.6,2])
-        bed3_fault_btn=Button(text=' ',color=[0,1,0,1],font_size=35,background_color=[.38,.47,.6,2])
-        bed4_fault_btn=Button(text=' ',color=[0,1,0,1],font_size=35,background_color=[.38,.47,.6,2])
-        bed5_fault_btn=Button(text=' ',color=[0,1,0,1],font_size=35,background_color=[.38,.47,.6,2])
-        bed6_fault_btn=Button(text=' ',color=[0,1,0,1],font_size=35,background_color=[.38,.47,.6,2])
-        bed7_fault_btn=Button(text=' ',color=[0,1,0,1],font_size=35,background_color=[.38,.47,.6,2])
-        bed8_fault_btn=Button(text=' ',color=[0,1,0,1],font_size=35,background_color=[.38,.47,.6,2])
-        flow_fault_btn=Button(text=' ',color=[0,1,0,1],font_size=35,background_color=[.38,.47,.6,2])
+        bed_fault_btns = [0, 0, 0, 0, 0, 0, 0, 0] 
+        
+        for i in range(len(bed_fault_btns)):
+            bed_fault_btns[i] = Button(text=' ',
+                                       color=[0,1,0,1],
+                                       font_size=35,
+                                       background_color=[.38,.47,.6,2],
+                                       disabled=True,
+                                       )
+        flow_fault_btn = Button(text=' ',
+                                   color=[0,1,0,1],
+                                   font_size=35,
+                                   background_color=[.38,.47,.6,2],
+                                   disabled=True,
+                                   )
         home_btn=Button(text='Return to Home',font_size=48,on_press=self.return_toAuto,background_color=[.38,.47,.6,2])
 
-        bed1_fault_btn.disabled = True
-        bed2_fault_btn.disabled = True
-        bed3_fault_btn.disabled = True
-        bed4_fault_btn.disabled = True
-        bed5_fault_btn.disabled = True
-        bed6_fault_btn.disabled = True
-        bed7_fault_btn.disabled = True
-        bed8_fault_btn.disabled = True
-        flow_fault_btn.disabled = True
-
-        box.add_widget(bed1_fault_btn)
-        box.add_widget(bed2_fault_btn)
-        box.add_widget(bed3_fault_btn)
-        box.add_widget(bed4_fault_btn)
-        box.add_widget(bed5_fault_btn)
-        box.add_widget(bed6_fault_btn)
-        box.add_widget(bed7_fault_btn)
-        box.add_widget(bed8_fault_btn)
+        for btn in bed_fault_btns:
+            box.add_widget(btn)
         box.add_widget(flow_fault_btn)
         box.add_widget(home_btn)
 
@@ -1706,49 +1652,19 @@ class fault_screen(Screen):
         def Write_E():
             ser.flushInput()
             ser.flushOutput()
-            ser.write('E')
+            ser.write(b'E')
 
-            bed1_fault_btn.text = "Loading..."
-            bed2_fault_btn.text = "Loading..."
-            bed3_fault_btn.text = "Loading..."
-            bed4_fault_btn.text = "Loading..."
-            bed5_fault_btn.text = "Loading..."
-            bed6_fault_btn.text = "Loading..."
-            bed7_fault_btn.text = "Loading..."
-            bed8_fault_btn.text = "Loading..."
+            for btn in bed_fault_btns:
+                btn.text = "Loading..."
+                btn.color = [1,1,1,1]
             flow_fault_btn.text = "Loading..."
-
-
-            bed1_fault_btn.color = [1,1,1,1]
-            bed2_fault_btn.color = [1,1,1,1]
-            bed3_fault_btn.color = [1,1,1,1]
-            bed4_fault_btn.color = [1,1,1,1]
-            bed5_fault_btn.color = [1,1,1,1]
-            bed6_fault_btn.color = [1,1,1,1]
-            bed7_fault_btn.color = [1,1,1,1]
-            bed8_fault_btn.color = [1,1,1,1]
             flow_fault_btn.color = [1,1,1,1]
 
         def get_faults():
-
-            bed1_fault_btn.text = "Obtaining data..."
-            bed2_fault_btn.text = "Obtaining data..."
-            bed3_fault_btn.text = "Obtaining data..."
-            bed4_fault_btn.text = "Obtaining data..."
-            bed5_fault_btn.text = "Obtaining data..."
-            bed6_fault_btn.text = "Obtaining data..."
-            bed7_fault_btn.text = "Obtaining data..."
-            bed8_fault_btn.text = "Obtaining data..."
+            for btn in bed_fault_btns:
+                btn.text = "Obtaining data..."
+                btn.color = [1,1,1,1]
             flow_fault_btn.text = "Obtaining data..."
-
-            bed1_fault_btn.color = [1,1,1,1]
-            bed2_fault_btn.color = [1,1,1,1]
-            bed3_fault_btn.color = [1,1,1,1]
-            bed4_fault_btn.color = [1,1,1,1]
-            bed5_fault_btn.color = [1,1,1,1]
-            bed6_fault_btn.color = [1,1,1,1]
-            bed7_fault_btn.color = [1,1,1,1]
-            bed8_fault_btn.color = [1,1,1,1]
             flow_fault_btn.color = [1,1,1,1]
 
             sleep(.1)
@@ -1758,10 +1674,10 @@ class fault_screen(Screen):
 
             for index in range(len(faults)):
                 tempval = ser.readline()
-                faults[index] = int(tempval)
+                faults[index] = float(tempval)
 
         def update_faults():
-            for i in range(8):
+            for i in range(len(faults)):
                 if faults[i] == 1:
                     temp_text[i] = 'Error on Bed ' + str(i+1)
                     temp_color[i] = [1,0,0,1]
@@ -1776,24 +1692,11 @@ class fault_screen(Screen):
                 temp_text[8] = "Flow sensor good"
                 temp_color[8] = [1,1,1,1]
 
-            bed1_fault_btn.text = temp_text[0]
-            bed2_fault_btn.text = temp_text[1]
-            bed3_fault_btn.text = temp_text[2]
-            bed4_fault_btn.text = temp_text[3]
-            bed5_fault_btn.text = temp_text[4]
-            bed6_fault_btn.text = temp_text[5]
-            bed7_fault_btn.text = temp_text[6]
-            bed8_fault_btn.text = temp_text[7]
-            flow_fault_btn.text = temp_text[8]
+            for i in range(len(bed_fault_btns)):
+                bed_fault_btns[i].text = temp_text[i]
+                bed_fault_btns[i].color = temp_color[i]
 
-            bed1_fault_btn.color = temp_color[0]
-            bed2_fault_btn.color = temp_color[1]
-            bed3_fault_btn.color = temp_color[2]
-            bed4_fault_btn.color = temp_color[3]
-            bed5_fault_btn.color = temp_color[4]
-            bed6_fault_btn.color = temp_color[5]
-            bed7_fault_btn.color = temp_color[6]
-            bed8_fault_btn.color = temp_color[7]
+            flow_fault_btn.text = temp_text[8]
             flow_fault_btn.color = temp_color[8]
 
         Clock.schedule_once(lambda Q: Write_E(),0)
@@ -1821,4 +1724,3 @@ class display_app(App):
 
 if __name__=="__main__":
     display_app().run()
-
