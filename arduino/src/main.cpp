@@ -529,33 +529,59 @@ void MillisDelay(unsigned long local_duration)
 
 /*********************** ARDUINO SENSOR READ FROM VEGETRONIX **********************/
 
+// ORIGINAL
+// float readVH400(int sensorID)
+// {
+//     float VWC;
+//     float VWCavg;
+//     float tempVWC;
+//     for (int i = 0; i < 5; i++) {
+//         // Read value and convert to voltage
+//         int sensorDN = analogRead(sensor_analog_read[sensorID]);
+//         float sensorVoltage = sensorDN * (5.0 / 1023.0);
+
+//         // Calculate VWC
+//         if (sensorVoltage <= 1.1) {
+//             tempVWC = 10 * sensorVoltage - 1;
+//         } else if (sensorVoltage > 1.1 && sensorVoltage <= 1.3) {
+//             tempVWC = 25 * sensorVoltage - 17.5;
+//         } else if (sensorVoltage > 1.3 && sensorVoltage <= 1.82) {
+//             tempVWC = 48.08 * sensorVoltage - 47.5;
+//         } else if (sensorVoltage > 1.82 && sensorVoltage <= 2.2) {
+//             tempVWC = 26.32 * sensorVoltage - 7.89;
+//         } else if (sensorVoltage > 2.2 && sensorVoltage <= 3) {
+//             tempVWC = 62.5 * sensorVoltage - 87.5;
+//         } else {
+//             // TODO: invalid data
+//         }
+
+//         VWC = VWC + tempVWC;
+//     }
+//     VWCavg = (VWC / 5);
+//     return (VWCavg);
+// }
+
+// UPDATED on 3/6/23 for testing
 float readVH400(int sensorID)
 {
+    // Read value and convert to voltage
+    int sensorDN = analogRead(sensor_analog_read[sensorID]);
+    float sensorVoltage = sensorDN * (5.0 / 1023.0);
     float VWC;
-    float VWCavg;
-    float tempVWC;
-    for (int i = 0; i < 5; i++) {
-        // Read value and convert to voltage
-        int sensorDN = analogRead(sensor_analog_read[sensorID]);
-        float sensorVoltage = sensorDN * (5.0 / 1023.0);
 
-        // Calculate VWC
-        if (sensorVoltage <= 1.1) {
-            tempVWC = 10 * sensorVoltage - 1;
-        } else if (sensorVoltage > 1.1 && sensorVoltage <= 1.3) {
-            tempVWC = 25 * sensorVoltage - 17.5;
-        } else if (sensorVoltage > 1.3 && sensorVoltage <= 1.82) {
-            tempVWC = 48.08 * sensorVoltage - 47.5;
-        } else if (sensorVoltage > 1.82 && sensorVoltage <= 2.2) {
-            tempVWC = 26.32 * sensorVoltage - 7.89;
-        } else if (sensorVoltage > 2.2 && sensorVoltage <= 3) {
-            tempVWC = 62.5 * sensorVoltage - 87.5;
-        } else {
-            // TODO: invalid data
-        }
+    // Calculate VWC
+    if (sensorVoltage <= 1.1) {
+        VWC = 10 * sensorVoltage - 1;
+    } else if (sensorVoltage > 1.1 && sensorVoltage <= 1.3) {
+        VWC = 25 * sensorVoltage - 17.5;
+    } else if (sensorVoltage > 1.3 && sensorVoltage <= 1.82) {
+        VWC = 48.08 * sensorVoltage - 47.5;
+    } else if (sensorVoltage > 1.82 && sensorVoltage <= 2.2) {
+        VWC = 26.32 * sensorVoltage - 7.89;
+    } 
+    // else if (sensorVoltage > 2.2 && sensorVoltage <= 3) {
+    //     VWC = 62.5 * sensorVoltage - 87.5;
+    // } 
 
-        VWC = VWC + tempVWC;
-    }
-    VWCavg = (VWC / 5);
-    return (VWCavg);
+    return (VWC);
 }

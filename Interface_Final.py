@@ -4,7 +4,7 @@ import time
 import serial
 # import RPi.GPIO as GPIO
 from kivy.config import Config
-Config.set('graphics','fullscreen','0')
+Config.set('graphics','fullscreen','auto')
 Config.set('graphics','resizable','1')
 Config.set('graphics','width','480')
 Config.set('graphics','heigth','200')
@@ -37,8 +37,8 @@ import datetime
 from datetime import datetime
 
 global ser
-# ser = serial.Serial('/dev/ttyACM0', 9600)
-ser = serial.Serial('/dev/tty.usbmodem11301', 9600)
+ser = serial.Serial('/dev/ttyACM0', 9600)
+# ser = serial.Serial('/dev/tty.usbmodem11301', 9600)
 
 # GPIO.setmode(GPIO.BCM)
 # GPIO.setup(27,GPIO.IN)
