@@ -374,7 +374,7 @@ void ReadSensors()
     }
     delay(1000); // Delay time between powerup and read as per vegetronics
     // Loop to read analog pins form A0 to A7
-    for (int i = 0; i < 8; i++) {
+    for (int i = 0; i < 1; i++) {
         percent[i] = readVH400(i);
         StartPercent[i] = percent[i];
     }
@@ -539,6 +539,8 @@ float readVH400(int sensorID)
         // Read value and convert to voltage
         int sensorDN = analogRead(sensor_analog_read[sensorID]);
         float sensorVoltage = sensorDN * (5.0 / 1023.0);
+        Serial.write(sensorDN);
+        Serial.write(sensorVoltage);
 
         // Calculate VWC
         if (sensorVoltage <= 1.1) {
