@@ -21,3 +21,7 @@ or
 ```
 .venv/bin/python Interface_Final.py
 ```
+
+# Install on Arduino 
+1. Install platformio on Pi
+2. `pio run -t upload` -- make sure serial monitor is closed otherwise, this will fail. 
