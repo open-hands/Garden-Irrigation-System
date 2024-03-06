@@ -539,8 +539,8 @@ float readVH400(int sensorID)
         // Read value and convert to voltage
         int sensorDN = analogRead(sensor_analog_read[sensorID]);
         float sensorVoltage = sensorDN * (5.0 / 1023.0);
-        Serial.write(sensorDN);
-        Serial.write(sensorVoltage);
+        Serial.println(sensorDN);
+        Serial.println(sensorVoltage);
 
         // Calculate VWC
         if (sensorVoltage <= 1.1) {
