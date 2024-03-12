@@ -1,0 +1,29 @@
+python writes a single control character to arduino
+arduino writes a variable number of numbers back
+
+* 'A': // Initialize or Update
+  * expect a bunch of specific data from the pi
+  * water beds turned on for auto and are dry
+  * set error states if they don't look watered
+  * return to sleep
+* 'S': // Automatic watering
+  * everything commented out?
+  * return to sleep
+* 'M': // Manual watering
+  * expect a bunch of specific data from the pi
+  * water beds turned on for manual
+  * set error states if they don't look watered
+  * return to sleep
+* 'W':        // Winterizing
+  * I think try to empty water from lines?
+  * return to sleep
+* 'R':
+  * read readVH400, sensors
+  * send 8 values
+  * return to sleep
+* 'E': // Error comms to Pi
+  * print 8 error numbers
+  * return to sleep
+* 'L': // Debug read sensors
+  * print 8 readVH400 values
+  * debug repeatedly until state changed
