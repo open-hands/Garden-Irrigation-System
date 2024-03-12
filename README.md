@@ -1,4 +1,4 @@
-# Open Hands Food Pantry Garden Irrigation System
+[#](#) Open Hands Food Pantry Garden Irrigation System
 
 This is a 2017 as an Oakland University Senior Design project to provide the
 Open Hands Food Pantry with an autonomous off-grid irrigation system.
@@ -22,6 +22,6 @@ or
 .venv/bin/python Interface_Final.py
 ```
 
-# Install on Arduino 
+# Install on Arduino
 1. Install platformio on Pi
-2. `pio run -t upload` -- make sure serial monitor is closed otherwise, this will fail. 
+2. `pio run -t upload` -- make sure serial monitor is closed otherwise, this will fail.

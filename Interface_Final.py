@@ -683,31 +683,6 @@ class home_screen(Screen):
         #threshold6=Label(text=str(Threshold[5]),color=[0,0,1,1],font_size=50)
         #threshold7=Label(text=str(Threshold[6]),color=[0,0,1,1],font_size=50)
         #threshold8=Label(text=str(Threshold[7]),color=[0,0,1,1],font_size=50)
-        bed1_label=Label(text='Bed 1', font_size=30)
-        bed2_label=Label(text='Bed 2', font_size=30)
-        bed3_label=Label(text='Bed 3', font_size=30)
-        bed4_label=Label(text='Bed 4', font_size=30)
-        bed5_label=Label(text='Bed 5', font_size=30)
-        bed6_label=Label(text='Bed 6', font_size=30)
-        bed7_label=Label(text='Bed 7', font_size=30)
-        bed8_label=Label(text='Bed 8', font_size=30)
-        auto_label=Label(text='HOME',font_size=60)
-        blank1=Label(text='')
-        blank2=Label(text='')
-        blank3=Label(text='')
-        blank4=Label(text='')
-        blank5=Label(text='')
-        blank10=Label(text='')
-        blank20=Label(text='')
-        blank30=Label(text='')
-        blank40=Label(text='')
-        blank50=Label(text='')
-        blank100=Label(text='')
-        blank200=Label(text='')
-        blank300=Label(text='')
-        blank400=Label(text='')
-        blank500=Label(text='')
-        blank1000=Label(text='')
         #create buttons and attach events
         #auto_button=Button(text="Auto",font_size=25,color=[0,1,0,1],width=200,on_press=self.auto_routine)
         manual_button=Button(text="Manual",font_size=50,on_press=self.manual_routine,background_color=[.38,.47,.6,2])
@@ -754,22 +729,10 @@ class home_screen(Screen):
         Clock.schedule_interval(myClock.update, 1)
 
         #add the widgets to the layout
-        Layout.add_widget(blank1)
-        Layout.add_widget(blank2)
-        Layout.add_widget(blank3)
-        Layout.add_widget(blank4)
-        Layout.add_widget(blank5)
-        Layout.add_widget(blank10)
-        Layout.add_widget(blank20)
-        Layout.add_widget(blank30)
-        Layout.add_widget(bed1_label)
-        Layout.add_widget(bed2_label)
-        Layout.add_widget(bed3_label)
-        Layout.add_widget(bed4_label)
-        Layout.add_widget(bed5_label)
-        Layout.add_widget(bed6_label)
-        Layout.add_widget(bed7_label)
-        Layout.add_widget(bed8_label)
+        for i in range(8):
+            Layout.add_widget(Label(text=''))
+        for i in range(1, 9):
+            Layout.add_widget(Label(text=f"Bed {i}",font_size=30))
         Layout.add_widget(bed1_state)
         Layout.add_widget(bed2_state)
         Layout.add_widget(bed3_state)
@@ -778,20 +741,13 @@ class home_screen(Screen):
         Layout.add_widget(bed6_state)
         Layout.add_widget(bed7_state)
         Layout.add_widget(bed8_state)
-        Layout.add_widget(blank40)
-        Layout.add_widget(blank50)
-        Layout.add_widget(blank100)
-        Layout.add_widget(blank200)
-        Layout.add_widget(blank300)
-        Layout.add_widget(blank400)
-        Layout.add_widget(blank500)
-        Layout.add_widget(blank1000)
-
+        for i in range(8):
+            Layout.add_widget(Label(text=''))
 
         #float_layout.add_widget(auto_button)
         grid_layout.add_widget(manual_button)
         grid_layout.add_widget(settings_button)
-        clock_layout.add_widget(auto_label)
+        clock_layout.add_widget(Label(text='HOME',font_size=60))
         clock_layout.add_widget(myClock)
         #grid_layout.add_widget(update_button)
         #Layout.add_widget(cancel_button)
@@ -1319,51 +1275,14 @@ class manual_screen(Screen):
         mwater_option7=ToggleButton(text=mwater_type[6],size_hint=(.25,.25),background_color=mwater_color[6],state=mwater_buttonstates[6],on_press=self.mwatering_option7)
         mwater_option8=ToggleButton(text=mwater_type[7],size_hint=(.25,.25),background_color=mwater_color[7],state=mwater_buttonstates[7],on_press=self.mwatering_option8)
         '''
-        mbed1_label=Label(text='Bed 1',font_size=30)
-        mbed2_label=Label(text='Bed 2',font_size=30)
-        mbed3_label=Label(text='Bed 3',font_size=30)
-        mbed4_label=Label(text='Bed 4',font_size=30)
-        mbed5_label=Label(text='Bed 5',font_size=30)
-        mbed6_label=Label(text='Bed 6',font_size=30)
-        mbed7_label=Label(text='Bed 7',font_size=30)
-        mbed8_label=Label(text='Bed 8',font_size=30)
-
-        blank1=Label(text='')
-        blank2=Label(text='')
-        blank3=Label(text='')
-        blank4=Label(text='')
-        blank5=Label(text='')
-        blank6=Label(text='')
-        blank7=Label(text='')
-        blank8=Label(text='')
-        blank10=Label(text='')
-        blank20=Label(text='')
-        blank30=Label(text='')
-        blank40=Label(text='')
-        blank50=Label(text='')
-        blank60=Label(text='')
-        blank70=Label(text='')
-        blank80=Label(text='')
 
         myClock = TickTock(font_size=60)
         Clock.schedule_interval(myClock.update, 1)
 
-        mgrid_layout1.add_widget(blank1)
-        mgrid_layout1.add_widget(blank2)
-        mgrid_layout1.add_widget(blank3)
-        mgrid_layout1.add_widget(blank4)
-        mgrid_layout1.add_widget(blank5)
-        mgrid_layout1.add_widget(blank6)
-        mgrid_layout1.add_widget(blank7)
-        mgrid_layout1.add_widget(blank8)
-        mgrid_layout1.add_widget(mbed1_label)
-        mgrid_layout1.add_widget(mbed2_label)
-        mgrid_layout1.add_widget(mbed3_label)
-        mgrid_layout1.add_widget(mbed4_label)
-        mgrid_layout1.add_widget(mbed5_label)
-        mgrid_layout1.add_widget(mbed6_label)
-        mgrid_layout1.add_widget(mbed7_label)
-        mgrid_layout1.add_widget(mbed8_label)
+        for i in range(8):
+            mgrid_layout1.add_widget(Label(text=''))
+        for i in range(1, 9):
+            mgrid_layout1.add_widget(Label(text=f"Bed {i}",font_size=30))
         mgrid_layout1.add_widget(sens_read1)
         mgrid_layout1.add_widget(sens_read2)
         mgrid_layout1.add_widget(sens_read3)
@@ -1380,14 +1299,8 @@ class manual_screen(Screen):
         mgrid_layout1.add_widget(mbed6_state)
         mgrid_layout1.add_widget(mbed7_state)
         mgrid_layout1.add_widget(mbed8_state)
-        mgrid_layout1.add_widget(blank10)
-        mgrid_layout1.add_widget(blank20)
-        mgrid_layout1.add_widget(blank30)
-        mgrid_layout1.add_widget(blank40)
-        mgrid_layout1.add_widget(blank50)
-        mgrid_layout1.add_widget(blank60)
-        mgrid_layout1.add_widget(blank70)
-        mgrid_layout1.add_widget(blank80)
+        for i in range(8):
+            mgrid_layout1.add_widget(Label(text=''))
 
 
 ##        mgrid_layout1.add_widget(mwater_option1)
@@ -1613,8 +1526,8 @@ class fault_screen(Screen):
 
         global bed_fault_btns
         global flow_fault_btn
-        bed_fault_btns = [0, 0, 0, 0, 0, 0, 0, 0] 
-        
+        bed_fault_btns = [0, 0, 0, 0, 0, 0, 0, 0]
+
         for i in range(len(bed_fault_btns)):
             bed_fault_btns[i] = Button(text=' ',
                                        color=[0,1,0,1],
