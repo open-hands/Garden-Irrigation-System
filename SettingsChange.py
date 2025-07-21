@@ -22,12 +22,12 @@ def saveThreshold(BedNumber, NewThreshold):
     data[31] = dt.strftime("Date: %m/%d/%y Time:%H:%M\n")
     data[BedNumber] ='Thresh '+str(BedNumber)+':'+str(NewThreshold)+'\n'
     print(data)
-    f.close
+    f.close()
 
     f = open(settingsFile,'w')
     f.seek(0)
     f.writelines(data)
-    f.close
+    f.close()
 ##test for saveThreshold
 #saveThreshold(1,54)
 #---------------------------------------------------------------------------
@@ -39,12 +39,12 @@ def saveMaxWaterLvl(setMax):
     print(data)
     data[10] = 'Max Water Lvl:'+str(setMax)+'\n'
     data[31] = dt.strftime("Date: %m/%d/%y Time:%H:%M\n")
-    f.close
+    f.close()
 
     f = open(settingsFile,'w')
     f.seek(0)
     f.writelines(data)
-    f.close
+    f.close()
 
 
 #test for saveIncAmount
@@ -60,12 +60,12 @@ def saveIncAmount(setIncrement):
 
     data[11] = 'Increment:'+str(setIncrement)+'\n'
     data[31] = dt.strftime("Date: %m/%d/%y Time:%H:%M\n")
-    f.close
+    f.close()
 
     f = open(settingsFile,'w')
     f.seek(0)
     f.writelines(data)
-    f.close
+    f.close()
 
 
 #test for saveIncAmount
@@ -79,7 +79,7 @@ def getIncAmount():
     print(data)
 
     x = data[11]
-    f.close
+    f.close()
     incAmount = int(x.split(":",1)[1])
     #Test Print statement
     print(incAmount)
@@ -98,11 +98,11 @@ def turnBedOff(BedNumber):
 
     data[11+BedNumber] = 'PWR Bed'+str(BedNumber)+':0'+'\n'
     data[31] = dt.strftime("Date: %m/%d/%y Time:%H:%M\n")
-    f.close
+    f.close()
 
     f = open(settingsFile, 'w')
     f.writelines(data)
-    f.close
+    f.close()
 
 #test for turn bed off
 #turnBedOff(8)
@@ -116,11 +116,11 @@ def turnBedOn(BedNumber):
 
     data[11+BedNumber] = 'PWR Bed'+str(BedNumber)+':1'+'\n'
     data[31] = dt.strftime("Date: %m/%d/%y Time:%H:%M\n")
-    f.close
+    f.close()
 
     f = open(settingsFile, 'w')
     f.writelines(data)
-    f.close
+    f.close()
 
 #test for turn bed off
 #turnBedOn(5)
@@ -134,7 +134,7 @@ def getBedStatus(BedNum):
 
 
     x = data[11 + BedNum]
-    f.close
+    f.close()
     incAmount = int(x.split(":",1)[1])
     #Test Print statement
     print(incAmount)
@@ -144,7 +144,7 @@ def getThresholds():
     f = open(settingsFile, 'r')
     data = f.readlines()
     #print(data)
-    f.close
+    f.close()
 
     for num in range(1,9):
         thresh = data[num]
@@ -158,7 +158,7 @@ def getAllBedStatus():
     f = open(settingsFile, 'r')
     data = f.readlines()
     #print(data)
-    f.close
+    f.close()
 
     for num in range(1,9):
         bedOnOff = data[11+num]
@@ -172,7 +172,7 @@ def wateringTime():
 # Option for Soaker Hose
     f = open(settingsFile, 'r')
     data = f.readlines()
-    f.close()
+    f.close()()
     soak = 1
     drip = 0
     print(data)
@@ -210,13 +210,13 @@ def setSoaker(x):
     f = open(settingsFile, 'r')
     data = f.readlines()
     #print (data)
-    f.close
+    f.close()
     data[22 +x] = 'Wtr Option '+str(x)+':1'+'\n'
     data[31] = dt.strftime("Date: %m/%d/%y Time:%H:%M\n")
     print(x)
     f = open(settingsFile, 'w')
     f.writelines(data)
-    f.close
+    f.close()
 
 def setDrip(x):
 #option to set watering time
@@ -224,20 +224,20 @@ def setDrip(x):
     f = open(settingsFile, 'r')
     data = f.readlines()
     #print (data)
-    f.close
+    f.close()
     data[22 + x] = 'Wtr Option '+str(x)+':0'+'\n'
     data[31] = dt.strftime("Date: %m/%d/%y Time:%H:%M\n")
     print(x)
     f = open(settingsFile, 'w')
     f.writelines(data)
-    f.close
+    f.close()
 
 # Function to get intitial hose type based on text file
 def getWaterHose():
     f = open(settingsFile, 'r')
     data = f.readlines()
     #print (data)
-    f.close
+    f.close()
 
     for num in range(1,9):
         hose = data[22+num]
@@ -253,21 +253,21 @@ def setAutoWaitTime(x, y):
     f = open(settingsFile, 'r')
     data = f.readlines()
     #print (data)
-    f.close
+    f.close()
     data[32] = 'AM:' + str(x) + '\n'
     data[33] = 'PM:' + str(y) + '\n'
     data[31] = dt.strftime("Date: %m/%d/%y Time:%H:%M\n")
 
     f = open(settingsFile, 'w')
     f.writelines(data)
-    f.close
+    f.close()
 
 def getAutoWaitTime():
     print("AM")
     f = open(settingsFile, 'r')
     data = f.readlines()
     print (data)
-    f.close
+    f.close()
 
     am = int(data[32].split(':')[1])
     pm = int(data[33].split(':')[1])
@@ -280,20 +280,20 @@ def setSystemStatus(x):
     f = open(settingsFile, 'r')
     data = f.readlines()
     #print (data)
-    f.close
+    f.close()
 
     data[34] = 'SystemStatus:' + str(x) + '\n'
     data[31] = dt.strftime("Date: %m/%d/%y Time:%H:%M\n")
 
     f = open(settingsFile, 'w')
     f.writelines(data)
-    f.close
+    f.close()
 
 def getSystemStatus():
     f = open(settingsFile, 'r')
     data = f.readlines()
     #print (data)
-    f.close
+    f.close()
 
     status = int(data[34].split(':')[1])
 
@@ -309,7 +309,7 @@ def getSystemStatus():
 ##    #print (data)
 ##    data[22 +x] = 'Wtr Option '+str(x)+':1'\n'
 ##    data[31] = dt.strftime("Date: %m/%d/%y Time:%H:%M")
-##    f.close
+##    f.close()
 ##
 
 
