@@ -172,7 +172,7 @@ def wateringTime():
 # Option for Soaker Hose
     f = open(settingsFile, 'r')
     data = f.readlines()
-    f.close()()
+    f.close()
     soak = 1
     drip = 0
     print(data)
