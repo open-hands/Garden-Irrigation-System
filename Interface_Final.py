@@ -4,10 +4,11 @@ import time
 import serial
 # import RPi.GPIO as GPIO
 from kivy.config import Config
+
 Config.set('graphics','fullscreen','auto')
 Config.set('graphics','resizable','1')
 Config.set('graphics','width','480')
-Config.set('graphics','heigth','200')
+Config.set('graphics','height','200')
 
 #from kivy.core.window import Window
 #Window.fullscreen=False
@@ -183,30 +184,7 @@ class home_screen(Screen):
                 water_buttonstates[index]='normal'
                 water_color[index]=[.168,.25,.75,1]
 
-        bed1_state.text=auto_states[0]
-        bed1_state.state=auto_buttonstates[0]
-        bed1_state.background_color=bed_color[0]
-        bed2_state.text=auto_states[1]
-        bed2_state.state=auto_buttonstates[1]
-        bed2_state.background_color=bed_color[1]
-        bed3_state.text=auto_states[2]
-        bed3_state.state=auto_buttonstates[2]
-        bed3_state.background_color=bed_color[2]
-        bed4_state.text=auto_states[3]
-        bed4_state.state=auto_buttonstates[3]
-        bed4_state.background_color=bed_color[3]
-        bed5_state.text=auto_states[4]
-        bed5_state.state=auto_buttonstates[4]
-        bed5_state.background_color=bed_color[4]
-        bed6_state.text=auto_states[5]
-        bed6_state.state=auto_buttonstates[5]
-        bed6_state.background_color=bed_color[5]
-        bed7_state.text=auto_states[6]
-        bed7_state.state=auto_buttonstates[6]
-        bed7_state.background_color=bed_color[6]
-        bed8_state.text=auto_states[7]
-        bed8_state.state=auto_buttonstates[7]
-        bed8_state.background_color=bed_color[7]
+        # Button state will be updated after creation
 
 ##        water_option1.text=water_type[0]
 ##        water_option1.state=water_buttonstates[0]
@@ -453,91 +431,93 @@ class home_screen(Screen):
         saveThreshold(8,Threshold[7])
     '''
     def bed_state1(self,event):
-        if bed1_state.state=='down':
-            bed1_state.text='ON'
-            bed1_state.background_color=(.50,1,.99,1)
+        if self.bed1_state.state=='down':
+            print("bed1_state is down")
+            self.bed1_state.text='ON'
+            self.bed1_state.background_color=(.50,1,.99,1)
             Auto_BedState[0]=1
             turnBedOn(1)
         else:
-            bed1_state.text='OFF'
-            bed1_state.background_color=(.168,.25,.75,1)
+            print("bed1_state is up")
+            self.bed1_state.text='OFF'
+            self.bed1_state.background_color=(.168,.25,.75,1)
             Auto_BedState[0]=0
             turnBedOff(1)
     def bed_state2(self,event):
-        if bed2_state.state=='down':
-            bed2_state.text='ON'
-            bed2_state.background_color=(.50,1,.99,1)
+        if self.bed2_state.state=='down':
+            self.bed2_state.text='ON'
+            self.bed2_state.background_color=(.50,1,.99,1)
             Auto_BedState[1]=1
             turnBedOn(2)
         else:
-            bed2_state.text='OFF'
-            bed2_state.background_color=(.168,.25,.75,1)
+            self.bed2_state.text='OFF'
+            self.bed2_state.background_color=(.168,.25,.75,1)
             Auto_BedState[1]=0
             turnBedOff(2)
     def bed_state3(self,event):
-        if bed3_state.state=='down':
-            bed3_state.text='ON'
-            bed3_state.background_color=(.50,1,.99,1)
+        if self.bed3_state.state=='down':
+            self.bed3_state.text='ON'
+            self.bed3_state.background_color=(.50,1,.99,1)
             Auto_BedState[2]=1
             turnBedOn(3)
         else:
-            bed3_state.text='OFF'
-            bed3_state.background_color=(.168,.25,.75,1)
+            self.bed3_state.text='OFF'
+            self.bed3_state.background_color=(.168,.25,.75,1)
             Auto_BedState[2]=0
             turnBedOff(3)
     def bed_state4(self,event):
-        if bed4_state.state=='down':
-            bed4_state.text='ON'
-            bed4_state.background_color=(.50,1,.99,1)
+        if self.bed4_state.state=='down':
+            self.bed4_state.text='ON'
+            self.bed4_state.background_color=(.50,1,.99,1)
             Auto_BedState[3]=1
             turnBedOn(4)
         else:
-            bed4_state.text='OFF'
-            bed4_state.background_color=(.168,.25,.75,1)
+            self.bed4_state.text='OFF'
+            self.bed4_state.background_color=(.168,.25,.75,1)
             Auto_BedState[3]=0
             turnBedOff(4)
     def bed_state5(self,event):
-        if bed5_state.state=='down':
-            bed5_state.text='ON'
-            bed5_state.background_color=(.50,1,.99,1)
+        if self.bed5_state.state=='down':
+            self.bed5_state.text='ON'
+            self.bed5_state.background_color=(.50,1,.99,1)
             Auto_BedState[4]=1
             turnBedOn(5)
         else:
-            bed5_state.text='OFF'
-            bed5_state.background_color=(.168,.25,.75,1)
+            self.bed5_state.text='OFF'
+            self.bed5_state.background_color=(.168,.25,.75,1)
             Auto_BedState[4]=0
             turnBedOff(5)
     def bed_state6(self,event):
-        if bed6_state.state=='down':
-            bed6_state.text='ON'
-            bed6_state.background_color=(.50,1,.99,1)
+        if self.bed6_state.state=='down':
+            self.bed6_state.text='ON'
+            self.bed6_state.background_color=(.50,1,.99,1)
             Auto_BedState[5]=1
             turnBedOn(6)
         else:
-            bed6_state.text='OFF'
-            bed6_state.background_color=(.168,.25,.75,1)
+            self.bed6_state.text='OFF'
+            self.bed6_state.background_color=(.168,.25,.75,1)
             Auto_BedState[5]=0
             turnBedOff(6)
     def bed_state7(self,event):
-        if bed7_state.state=='down':
-            bed7_state.text='ON'
-            bed7_state.background_color=(.50,1,.99,1)
+        if self.bed7_state.state=='down':
+            self.bed7_state.text='ON'
+            self.bed7_state.background_color=(.50,1,.99,1)
             Auto_BedState[6]=1
             turnBedOn(7)
         else:
-            bed7_state.text='OFF'
-            bed7_state.background_color=(.168,.25,.75,1)
+            self.bed7_state.text='OFF'
+            self.bed7_state.background_color=(.168,.25,.75,1)
             Auto_BedState[6]=0
             turnBedOff(7)
     def bed_state8(self,event):
-        if bed8_state.state=='down':
-            bed8_state.text='ON'
-            bed8_state.background_color=(.50,1,.99,1)
+        if self.bed8_state.state=='down':
+            self.bed8_state.text='ON'
+            self.bed8_state.background_color=(.50,1,.99,1)
             Auto_BedState[7]=1
             turnBedOn(8)
         else:
-            bed8_state.text='OFF'
-            bed8_state.background_color=(.168,.25,.75,1)
+            self.bed8_state.text='OFF'
+            self.bed8_state.background_color=(.168,.25,.75,1)
             Auto_BedState[7]=0
             turnBedOff(8)
     '''
@@ -649,16 +629,6 @@ class home_screen(Screen):
         global threshold6
         global threshold7
         global threshold8
-        '''
-        global bed1_state
-        global bed2_state
-        global bed3_state
-        global bed4_state
-        global bed5_state
-        global bed6_state
-        global bed7_state
-        global bed8_state
-        '''
         global water_option1
         global water_option2
         global water_option3
@@ -708,14 +678,14 @@ class home_screen(Screen):
         #decrease_thresh6=Button(on_press=self.decrease_bed6,border=(0,16,16,16),text='-',font_size=50,background_color=[.50,1,.99,2])
         #decrease_thresh7=Button(on_press=self.decrease_bed7,border=(0,16,16,16),text='-',font_size=50,background_color=[.50,1,.99,2])
         #decrease_thresh8=Button(on_press=self.decrease_bed8,border=(0,16,16,16),text='-',font_size=50,background_color=[.50,1,.99,2])
-        bed1_state=ToggleButton(on_press=self.bed_state1,text=auto_states[0],background_color=bed_color[0],state=auto_buttonstates[0], font_size=40, background_normal='')
-        bed2_state=ToggleButton(on_press=self.bed_state2,text=auto_states[1],background_color=bed_color[1],state=auto_buttonstates[1], font_size=40, background_normal='')
-        bed3_state=ToggleButton(on_press=self.bed_state3,text=auto_states[2],background_color=bed_color[2],state=auto_buttonstates[2], font_size=40, background_normal='')
-        bed4_state=ToggleButton(on_press=self.bed_state4,text=auto_states[3],background_color=bed_color[3],state=auto_buttonstates[3], font_size=40, background_normal='')
-        bed5_state=ToggleButton(on_press=self.bed_state5,text=auto_states[4],background_color=bed_color[4],state=auto_buttonstates[4], font_size=40, background_normal='')
-        bed6_state=ToggleButton(on_press=self.bed_state6,text=auto_states[5],background_color=bed_color[5],state=auto_buttonstates[5], font_size=40, background_normal='')
-        bed7_state=ToggleButton(on_press=self.bed_state7,text=auto_states[6],background_color=bed_color[6],state=auto_buttonstates[6], font_size=40, background_normal='')
-        bed8_state=ToggleButton(on_press=self.bed_state8,text=auto_states[7],background_color=bed_color[7],state=auto_buttonstates[7], font_size=40, background_normal='')
+        self.bed1_state=ToggleButton(on_press=self.bed_state1,text=auto_states[0],background_color=bed_color[0],state=auto_buttonstates[0], font_size=40, background_normal='')
+        self.bed2_state=ToggleButton(on_press=self.bed_state2,text=auto_states[1],background_color=bed_color[1],state=auto_buttonstates[1], font_size=40, background_normal='')
+        self.bed3_state=ToggleButton(on_press=self.bed_state3,text=auto_states[2],background_color=bed_color[2],state=auto_buttonstates[2], font_size=40, background_normal='')
+        self.bed4_state=ToggleButton(on_press=self.bed_state4,text=auto_states[3],background_color=bed_color[3],state=auto_buttonstates[3], font_size=40, background_normal='')
+        self.bed5_state=ToggleButton(on_press=self.bed_state5,text=auto_states[4],background_color=bed_color[4],state=auto_buttonstates[4], font_size=40, background_normal='')
+        self.bed6_state=ToggleButton(on_press=self.bed_state6,text=auto_states[5],background_color=bed_color[5],state=auto_buttonstates[5], font_size=40, background_normal='')
+        self.bed7_state=ToggleButton(on_press=self.bed_state7,text=auto_states[6],background_color=bed_color[6],state=auto_buttonstates[6], font_size=40, background_normal='')
+        self.bed8_state=ToggleButton(on_press=self.bed_state8,text=auto_states[7],background_color=bed_color[7],state=auto_buttonstates[7], font_size=40, background_normal='')
         #water_option1=ToggleButton(on_press=self.watering_option1,text=water_type[0],size_hint=(.4,.4),background_color=water_color[0],state=water_buttonstates[0])
         #water_option2=ToggleButton(on_press=self.watering_option2,text=water_type[1],size_hint=(.4,.4),background_color=water_color[1],state=water_buttonstates[1])
         #water_option3=ToggleButton(on_press=self.watering_option3,text=water_type[2],size_hint=(.4,.4),background_color=water_color[2],state=water_buttonstates[2])
@@ -733,14 +703,14 @@ class home_screen(Screen):
             Layout.add_widget(Label(text=''))
         for i in range(1, 9):
             Layout.add_widget(Label(text=f"Bed {i}",font_size=30))
-        Layout.add_widget(bed1_state)
-        Layout.add_widget(bed2_state)
-        Layout.add_widget(bed3_state)
-        Layout.add_widget(bed4_state)
-        Layout.add_widget(bed5_state)
-        Layout.add_widget(bed6_state)
-        Layout.add_widget(bed7_state)
-        Layout.add_widget(bed8_state)
+        Layout.add_widget(self.bed1_state)
+        Layout.add_widget(self.bed2_state)
+        Layout.add_widget(self.bed3_state)
+        Layout.add_widget(self.bed4_state)
+        Layout.add_widget(self.bed5_state)
+        Layout.add_widget(self.bed6_state)
+        Layout.add_widget(self.bed7_state)
+        Layout.add_widget(self.bed8_state)
         for i in range(8):
             Layout.add_widget(Label(text=''))
 
@@ -832,30 +802,30 @@ class manual_screen(Screen):
                 mwater_buttonstates[index]='normal'
                 mwater_color[index]=[.168,.25,.75,1]
 
-        mbed1_state.text=manual_states[0]
-        mbed1_state.state=manual_buttonstates[0]
-        mbed1_state.background_color=mbed_color[0]
-        mbed2_state.text=manual_states[1]
-        mbed2_state.state=manual_buttonstates[1]
-        mbed2_state.background_color=mbed_color[1]
-        mbed3_state.text=manual_states[2]
-        mbed3_state.state=manual_buttonstates[2]
-        mbed3_state.background_color=mbed_color[2]
-        mbed4_state.text=manual_states[3]
-        mbed4_state.state=manual_buttonstates[3]
-        mbed4_state.background_color=mbed_color[3]
-        mbed5_state.text=manual_states[4]
-        mbed5_state.state=manual_buttonstates[4]
-        mbed5_state.background_color=mbed_color[4]
-        mbed6_state.text=manual_states[5]
-        mbed6_state.state=manual_buttonstates[5]
-        mbed6_state.background_color=mbed_color[5]
-        mbed7_state.text=manual_states[6]
-        mbed7_state.state=manual_buttonstates[6]
-        mbed7_state.background_color=mbed_color[6]
-        mbed8_state.text=manual_states[7]
-        mbed8_state.state=manual_buttonstates[7]
-        mbed8_state.background_color=mbed_color[7]
+        self.mbed1_state.text=manual_states[0]
+        self.mbed1_state.state=manual_buttonstates[0]
+        self.mbed1_state.background_color=mbed_color[0]
+        self.mbed2_state.text=manual_states[1]
+        self.mbed2_state.state=manual_buttonstates[1]
+        self.mbed2_state.background_color=mbed_color[1]
+        self.mbed3_state.text=manual_states[2]
+        self.mbed3_state.state=manual_buttonstates[2]
+        self.mbed3_state.background_color=mbed_color[2]
+        self.mbed4_state.text=manual_states[3]
+        self.mbed4_state.state=manual_buttonstates[3]
+        self.mbed4_state.background_color=mbed_color[3]
+        self.mbed5_state.text=manual_states[4]
+        self.mbed5_state.state=manual_buttonstates[4]
+        self.mbed5_state.background_color=mbed_color[4]
+        self.mbed6_state.text=manual_states[5]
+        self.mbed6_state.state=manual_buttonstates[5]
+        self.mbed6_state.background_color=mbed_color[5]
+        self.mbed7_state.text=manual_states[6]
+        self.mbed7_state.state=manual_buttonstates[6]
+        self.mbed7_state.background_color=mbed_color[6]
+        self.mbed8_state.text=manual_states[7]
+        self.mbed8_state.state=manual_buttonstates[7]
+        self.mbed8_state.background_color=mbed_color[7]
 
 ##        mwater_option1.text=mwater_type[0]
 ##        mwater_option1.state=mwater_buttonstates[0]
@@ -1033,90 +1003,90 @@ class manual_screen(Screen):
 
 
     def mbed_state1(self,event):
-        if mbed1_state.state=='down':
-            mbed1_state.text='ON'
-            mbed1_state.background_color=(.50,1,.99,1)
+        if self.mbed1_state.state=='down':
+            self.mbed1_state.text='ON'
+            self.mbed1_state.background_color=(.50,1,.99,1)
             Manual_BedState[0]=1
         else:
-            mbed1_state.text='OFF'
-            mbed1_state.background_color=(.168,.25,.75,1)
+            self.mbed1_state.text='OFF'
+            self.mbed1_state.background_color=(.168,.25,.75,1)
             Manual_BedState[0]=0
 
 
     def mbed_state2(self,event):
-        if mbed2_state.state=='down':
-            mbed2_state.text='ON'
-            mbed2_state.background_color=(.50,1,.99,1)
+        if self.mbed2_state.state=='down':
+            self.mbed2_state.text='ON'
+            self.mbed2_state.background_color=(.50,1,.99,1)
             Manual_BedState[1]=1
         else:
-            mbed2_state.text='OFF'
-            mbed2_state.background_color=(.168,.25,.75,1)
+            self.mbed2_state.text='OFF'
+            self.mbed2_state.background_color=(.168,.25,.75,1)
             Manual_BedState[1]=0
 
 
     def mbed_state3(self,event):
-        if mbed3_state.state=='down':
-            mbed3_state.text='ON'
-            mbed3_state.background_color=(.50,1,.99,1)
+        if self.mbed3_state.state=='down':
+            self.mbed3_state.text='ON'
+            self.mbed3_state.background_color=(.50,1,.99,1)
             Manual_BedState[2]=1
         else:
-            mbed3_state.text='OFF'
-            mbed3_state.background_color=(.168,.25,.75,1)
+            self.mbed3_state.text='OFF'
+            self.mbed3_state.background_color=(.168,.25,.75,1)
             Manual_BedState[2]=0
 
 
     def mbed_state4(self,event):
-        if mbed4_state.state=='down':
-            mbed4_state.text='ON'
-            mbed4_state.background_color=(.50,1,.99,1)
+        if self.mbed4_state.state=='down':
+            self.mbed4_state.text='ON'
+            self.mbed4_state.background_color=(.50,1,.99,1)
             Manual_BedState[3]=1
         else:
-            mbed4_state.text='OFF'
-            mbed4_state.background_color=(.168,.25,.75,1)
+            self.mbed4_state.text='OFF'
+            self.mbed4_state.background_color=(.168,.25,.75,1)
             Manual_BedState[3]=0
 
 
     def mbed_state5(self,event):
-        if mbed5_state.state=='down':
-            mbed5_state.text='ON'
-            mbed5_state.background_color=(.50,1,.99,1)
+        if self.mbed5_state.state=='down':
+            self.mbed5_state.text='ON'
+            self.mbed5_state.background_color=(.50,1,.99,1)
             Manual_BedState[4]=1
         else:
-            mbed5_state.text='OFF'
-            mbed5_state.background_color=(.168,.25,.75,1)
+            self.mbed5_state.text='OFF'
+            self.mbed5_state.background_color=(.168,.25,.75,1)
             Manual_BedState[4]=0
 
 
     def mbed_state6(self,event):
-        if mbed6_state.state=='down':
-            mbed6_state.text='ON'
-            mbed6_state.background_color=(.50,1,.99,1)
+        if self.mbed6_state.state=='down':
+            self.mbed6_state.text='ON'
+            self.mbed6_state.background_color=(.50,1,.99,1)
             Manual_BedState[5]=1
         else:
-            mbed6_state.text='OFF'
-            mbed6_state.background_color=(.168,.25,.75,1)
+            self.mbed6_state.text='OFF'
+            self.mbed6_state.background_color=(.168,.25,.75,1)
             Manual_BedState[5]=0
 
 
     def mbed_state7(self,event):
-        if mbed7_state.state=='down':
-            mbed7_state.text='ON'
-            mbed7_state.background_color=(.50,1,.99,1)
+        if self.mbed7_state.state=='down':
+            self.mbed7_state.text='ON'
+            self.mbed7_state.background_color=(.50,1,.99,1)
             Manual_BedState[6]=1
         else:
-            mbed7_state.text='OFF'
-            mbed7_state.background_color=(.168,.25,.75,1)
+            self.mbed7_state.text='OFF'
+            self.mbed7_state.background_color=(.168,.25,.75,1)
             Manual_BedState[6]=0
 
 
     def mbed_state8(self,event):
-        if mbed8_state.state=='down':
-            mbed8_state.text='ON'
-            mbed8_state.background_color=(.50,1,.99,1)
+        if self.mbed8_state.state=='down':
+            self.mbed8_state.text='ON'
+            self.mbed8_state.background_color=(.50,1,.99,1)
             Manual_BedState[7]=1
         else:
-            mbed8_state.text='OFF'
-            mbed8_state.background_color=(.168,.25,.75,1)
+            self.mbed8_state.text='OFF'
+            self.mbed8_state.background_color=(.168,.25,.75,1)
             Manual_BedState[7]=0
 ##
 ##
@@ -1208,14 +1178,6 @@ class manual_screen(Screen):
 
 
     def __init__(self,**kwargs):
-        global mbed1_state
-        global mbed2_state
-        global mbed3_state
-        global mbed4_state
-        global mbed5_state
-        global mbed6_state
-        global mbed7_state
-        global mbed8_state
 ##        global mwater_option1
 ##        global mwater_option2
 ##        global mwater_option3
@@ -1247,14 +1209,14 @@ class manual_screen(Screen):
         # sensorRead_button=Button(text='Read Sensors',font_size=25,on_press=self.read_sensors,width=300,background_color=[.38,.47,.6,2])
         manual_start=Button(text='Start',font_size=50,on_press=self.start_manual,background_color=[.38,.47,.6,2])
 
-        mbed1_state=ToggleButton(text=manual_states[0],state=manual_buttonstates[0],background_color=mbed_color[0],on_press=self.mbed_state1,font_size=40)
-        mbed2_state=ToggleButton(text=manual_states[1],state=manual_buttonstates[1],background_color=mbed_color[1],on_press=self.mbed_state2,font_size=40)
-        mbed3_state=ToggleButton(text=manual_states[2],state=manual_buttonstates[2],background_color=mbed_color[2],on_press=self.mbed_state3,font_size=40)
-        mbed4_state=ToggleButton(text=manual_states[3],state=manual_buttonstates[3],background_color=mbed_color[3],on_press=self.mbed_state4,font_size=40)
-        mbed5_state=ToggleButton(text=manual_states[4],state=manual_buttonstates[4],background_color=mbed_color[4],on_press=self.mbed_state5,font_size=40)
-        mbed6_state=ToggleButton(text=manual_states[5],state=manual_buttonstates[5],background_color=mbed_color[5],on_press=self.mbed_state6,font_size=40)
-        mbed7_state=ToggleButton(text=manual_states[6],state=manual_buttonstates[6],background_color=mbed_color[6],on_press=self.mbed_state7,font_size=40)
-        mbed8_state=ToggleButton(text=manual_states[7],state=manual_buttonstates[7],background_color=mbed_color[7],on_press=self.mbed_state8,font_size=40)
+        self.mbed1_state=ToggleButton(text=manual_states[0],state=manual_buttonstates[0],background_color=mbed_color[0],on_press=self.mbed_state1,font_size=40)
+        self.mbed2_state=ToggleButton(text=manual_states[1],state=manual_buttonstates[1],background_color=mbed_color[1],on_press=self.mbed_state2,font_size=40)
+        self.mbed3_state=ToggleButton(text=manual_states[2],state=manual_buttonstates[2],background_color=mbed_color[2],on_press=self.mbed_state3,font_size=40)
+        self.mbed4_state=ToggleButton(text=manual_states[3],state=manual_buttonstates[3],background_color=mbed_color[3],on_press=self.mbed_state4,font_size=40)
+        self.mbed5_state=ToggleButton(text=manual_states[4],state=manual_buttonstates[4],background_color=mbed_color[4],on_press=self.mbed_state5,font_size=40)
+        self.mbed6_state=ToggleButton(text=manual_states[5],state=manual_buttonstates[5],background_color=mbed_color[5],on_press=self.mbed_state6,font_size=40)
+        self.mbed7_state=ToggleButton(text=manual_states[6],state=manual_buttonstates[6],background_color=mbed_color[6],on_press=self.mbed_state7,font_size=40)
+        self.mbed8_state=ToggleButton(text=manual_states[7],state=manual_buttonstates[7],background_color=mbed_color[7],on_press=self.mbed_state8,font_size=40)
         screen_label=Label(text='MANUAL',font_size=60)
 
         sens_read1=Label(text=sensor_text[0],font_size=25) #should dynamically change the color of the sensor values red green or yellow based on our data
@@ -1291,14 +1253,14 @@ class manual_screen(Screen):
         mgrid_layout1.add_widget(sens_read6)
         mgrid_layout1.add_widget(sens_read7)
         mgrid_layout1.add_widget(sens_read8)
-        mgrid_layout1.add_widget(mbed1_state)
-        mgrid_layout1.add_widget(mbed2_state)
-        mgrid_layout1.add_widget(mbed3_state)
-        mgrid_layout1.add_widget(mbed4_state)
-        mgrid_layout1.add_widget(mbed5_state)
-        mgrid_layout1.add_widget(mbed6_state)
-        mgrid_layout1.add_widget(mbed7_state)
-        mgrid_layout1.add_widget(mbed8_state)
+        mgrid_layout1.add_widget(self.mbed1_state)
+        mgrid_layout1.add_widget(self.mbed2_state)
+        mgrid_layout1.add_widget(self.mbed3_state)
+        mgrid_layout1.add_widget(self.mbed4_state)
+        mgrid_layout1.add_widget(self.mbed5_state)
+        mgrid_layout1.add_widget(self.mbed6_state)
+        mgrid_layout1.add_widget(self.mbed7_state)
+        mgrid_layout1.add_widget(self.mbed8_state)
         for i in range(8):
             mgrid_layout1.add_widget(Label(text=''))
 
