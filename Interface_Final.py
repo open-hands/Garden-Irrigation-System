@@ -442,6 +442,7 @@ class home_screen(Screen):
         saveThreshold(8,Threshold[7])
     '''
     def bed_state1(self,event):
+        print("*** bed_state1 callback triggered ***")
         if self.bed1_state.state=='down':
             print("bed1_state is down/ON")
             self.bed1_state.text='ON'
@@ -455,6 +456,7 @@ class home_screen(Screen):
             Auto_BedState[0]=0
             turnBedOff(1)
     def bed_state2(self,event):
+        print("*** bed_state2 callback triggered ***")
         if self.bed2_state.state=='down':
             self.bed2_state.text='ON'
             self.bed2_state.background_color=(.50,1,.99,1)
