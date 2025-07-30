@@ -5,10 +5,21 @@ import serial
 # import RPi.GPIO as GPIO
 from kivy.config import Config
 
+# Graphics settings
 Config.set('graphics','fullscreen','auto')
 Config.set('graphics','resizable','1')
 Config.set('graphics','width','480')
 Config.set('graphics','height','200')
+
+# Touch settings for better touchscreen behavior
+Config.set('input', 'mouse', 'mouse,multitouch_on_demand')
+Config.set('postproc', 'double_tap_time', '250')  # Reduce double tap sensitivity
+Config.set('postproc', 'double_tap_distance', '20')  # Reduce double tap distance
+Config.set('kivy', 'exit_on_escape', '0')  # Prevent accidental exit
+
+# Optimize for touch devices
+Config.set('input', 'touch_timeout', '0')  # Disable touch timeout
+Config.set('graphics', 'multisamples', '0')  # Disable antialiasing for better performance
 
 #from kivy.core.window import Window
 #Window.fullscreen=False
@@ -432,13 +443,13 @@ class home_screen(Screen):
     '''
     def bed_state1(self,event):
         if self.bed1_state.state=='down':
-            print("bed1_state is down")
+            print("bed1_state is down/ON")
             self.bed1_state.text='ON'
             self.bed1_state.background_color=(.50,1,.99,1)
             Auto_BedState[0]=1
             turnBedOn(1)
         else:
-            print("bed1_state is up")
+            print("bed1_state is up/OFF")
             self.bed1_state.text='OFF'
             self.bed1_state.background_color=(.168,.25,.75,1)
             Auto_BedState[0]=0
