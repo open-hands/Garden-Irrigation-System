@@ -28,7 +28,7 @@ or
 
 # Run App on Boot
 *This service will also automatically relaunch the app if it crashes.*
-1. Put `irrigation.service` into `/etc/systemd/system/`
+1. Put `irrigation.service` into `/etc/systemd/system/` (use sudo)
 2. Apply the changes by running
     ```
     sudo systemctl daemon-reload
