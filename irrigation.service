@@ -13,7 +13,7 @@ Environment=HOME=/home/pi
 Environment=XDG_RUNTIME_DIR=/run/user/1000
 Environment=XAUTHORITY=/home/pi/.Xauthority
 ExecStartPre=/bin/sleep 15
-ExecStart=/home/pi/Garden-Irrigation-System/myenv/bin/python /home/pi/Garden-Irrigation-System/Interface_Final.py
+ExecStart=/home/pi/Garden-Irrigation-System/.myenv/bin/python /home/pi/Garden-Irrigation-System/Interface_Final.py
 Restart=always
 RestartSec=10
 
